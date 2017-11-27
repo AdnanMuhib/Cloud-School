@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -40,5 +41,16 @@ namespace CloudSchool.Models
         [DataType(DataType.Upload)]
         public string Logo { get; set; }
 
+    }
+    // Database for the Identity Model
+    public class CloudSchoolDbContext : DbContext {
+        public DbSet<Institute> Institutes { set; get; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<CourseSubject> Subjects { get; set; }
+        public DbSet<ClassForStudents> Classes { get; set; }
+        public DbSet<ClassSection> Sections { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Result> Results { get; set; }
     }
 }
