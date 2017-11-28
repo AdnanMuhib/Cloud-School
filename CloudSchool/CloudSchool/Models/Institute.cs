@@ -52,5 +52,7 @@ namespace CloudSchool.Models
         public DbSet<ClassSection> Sections { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<Result> Results { get; set; }
+
+        public System.Data.Entity.DbSet<CloudSchool.Models.Notification> Notifications { get; set; }
     }
 }
