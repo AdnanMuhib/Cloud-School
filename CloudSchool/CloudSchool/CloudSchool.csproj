@@ -171,6 +171,7 @@
     <Compile Include="Controllers\ClassForStudentsController.cs" />
     <Compile Include="Controllers\ClassSectionsController.cs" />
     <Compile Include="Controllers\CourseSubjectsController.cs" />
+    <Compile Include="Controllers\DashboardsController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstitutesController.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassForStudents.cs" />
     <Compile Include="Models\ClassSection.cs" />
+    <Compile Include="Models\Dashboard.cs" />
     <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Institute.cs" />
@@ -307,6 +309,12 @@
     <Content Include="Views\Institutes\Details.cshtml" />
     <Content Include="Views\Institutes\Edit.cshtml" />
     <Content Include="Views\Institutes\Index.cshtml" />
+    <Content Include="Views\Shared\_DashboardSchool.cshtml" />
+    <Content Include="Views\Dashboards\Create.cshtml" />
+    <Content Include="Views\Dashboards\Delete.cshtml" />
+    <Content Include="Views\Dashboards\Details.cshtml" />
+    <Content Include="Views\Dashboards\Edit.cshtml" />
+    <Content Include="Views\Dashboards\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

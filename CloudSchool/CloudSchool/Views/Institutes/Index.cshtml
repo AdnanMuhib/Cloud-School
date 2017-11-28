@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<CloudSchool.Models.Institute>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Registered Institutes";
 }
 
-<h2>Index</h2>
+<h2>Registered Institutes</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p style="text-align:right;">
+    <span class="btn btn-success" id="MyButton" >@Html.ActionLink("Register New Institute", "Create")</span>
 </p>
 <table class="table">
     <tr>
