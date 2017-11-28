@@ -8,6 +8,7 @@ namespace CloudSchool.Models
 {
     public class Result
     {
+        public int ID { get; set; }
         public List<CourseSubject> Subjects { get; set; }
         public Double Percentage { get; set; }
         [DisplayName("Result of Registration Number")]
