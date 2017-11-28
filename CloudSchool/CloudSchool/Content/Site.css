@@ -331,7 +331,11 @@ textarea.form-control {
     color: white;
 }
 
-
+#MyButton a{
+    text-decoration:none;
+    color:white;
+    font-size:large;
+}
 
 
 
