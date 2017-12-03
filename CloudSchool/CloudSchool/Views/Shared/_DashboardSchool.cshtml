@@ -7,9 +7,19 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <style>
+        .navbar {
+            background-color:black;
+            color:white;
+        }
+        .body-content {
+        padding-left:0px;
+        }
+    </style>
+    <link type="text/css" href="~/Content/style.css" rel="stylesheet"/>
 </head>
 <body>
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,32 +28,49 @@
                     <span class="icon-bar"></span>
                 </button>
                 <span style="color:white;font-size:large">
-                    @Html.ActionLink("Cloud School", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <p class="site-title navbar-brand"><a href="@Url.Action("Index", "Home")"><img src="~/Images/CSE dept logo.png" alt="Cloud School" class="img-circle img-responsive img-rounded img-thumbnail" width="50px"/></a></p>
+                    @*@Html.ActionLink("Cloud School", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
                 </span>
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li><a href="#Services">Services</a></li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
-        <div class="row">
-            <div class="col-md-4" style="background-color:black;height:300px;">
+        <div class="row" style="margin-top:20px;">
+            <div class="col-sm-3" style="margin-left:0px;">
+                <div style="background-color:black;color:white;height:700px;position:absolute;width:100%;">
+                    <div class="side-menu" style="position:absolute;">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <!-- Main Menu -->
+                            <div class="side-menu-container">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><span class="glyphicon glyphicon-dashboard" id="ICON-SideBar">@Html.ActionLink("Dashboard", "Index", "Dashboards")</span></li>
+                                    <li ><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Teachers", "Index", "Teachers")</span></li>
+                                    <li ><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Students", "Index", "Students")</span></li>
+                                    <li ><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Courses", "Index", "Dashboards")</span></li>
+                                    <li ><span class="glyphicon glyphicon-folder-open" id="ICON-SideBar">@Html.ActionLink("Subjects", "Index", "Teachers")</span></li>
+                                    <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </nav>
+                    </div>
+        </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-sm-9">
                 @RenderBody()
                 <hr />
+                <footer id="cloudShoolFooter" class="navbar-fixed-bottom">
+                    <p>&copy; @DateTime.Now.Year - Cloud School</p>
+                </footer>
             </div>
         </div>
-         <footer id="cloudShoolFooter">
-            <p>&copy; @DateTime.Now.Year - Cloud School</p>
-        </footer>
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")

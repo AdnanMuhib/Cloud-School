@@ -203,6 +203,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -213,6 +214,8 @@
     <Content Include="Images\4.jpg" />
     <Content Include="Images\5.jpg" />
     <Content Include="Images\AdmissionProcess.jpg" />
+    <Content Include="Images\CSE dept logo.jpg" />
+    <Content Include="Images\CSE dept logo.png" />
     <Content Include="Images\Exam_Results.jpg" />
     <Content Include="Images\internet-speed.png" />
     <Content Include="Images\Marketing.jpg" />

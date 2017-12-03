@@ -257,7 +257,7 @@ background:brown;
 color:white;
 }
 .nav > li > a:hover, .nav > li > a:focus {
-background-color:orange;
+background-color:orangered;
 }
 
 .navbar ul li a{
@@ -326,7 +326,8 @@ textarea.form-control {
 #cloudShoolFooter {
     text-align: center;
     margin-top: 20px;
-    background: brown;
+    margin-left: 20px;
+    background:orangered;
     padding: 20px;
     color: white;
 }
