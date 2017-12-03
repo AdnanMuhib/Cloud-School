@@ -214,7 +214,10 @@
     <Content Include="Images\5.jpg" />
     <Content Include="Images\AdmissionProcess.jpg" />
     <Content Include="Images\Exam_Results.jpg" />
+    <Content Include="Images\internet-speed.png" />
     <Content Include="Images\Marketing.jpg" />
+    <Content Include="Images\rack_server_unlock.png" />
+    <Content Include="Images\window_domain.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
