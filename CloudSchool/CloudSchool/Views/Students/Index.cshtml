@@ -2,135 +2,47 @@
 
 @{
     ViewBag.Title = "Enrolled Students";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
 }
 
-<h2>Enrolled Students</h2>
+<h2>Students Enrolled</h2>
 
-<p>
-    <span class="btn btn-primary" id="MyButton">@Html.ActionLink("Enroll New", "Create")</span>
+<p class="row">
+    <span class="btn btn-primary" id="MyButton" style="float:right">@Html.ActionLink("Enroll New Student", "Create")</span>
 </p>
-<table class="table">
-    <tr class="row">
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FatherName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CNIC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InstituteName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MobileNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastPassedExam)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastExamTotalMarks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastExamObtainedMarks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RegistrationNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnrolledClassName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnrolledSectionName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailIDParents)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProfilePicture)
-        </th>
+@{
+    int counter = 0;
 
-        <th></th>
-    </tr>
+    foreach (var item in Model)
+    {
+        counter = counter + 1;
+    <div class="row">
+        <p>@counter</p>
+        <div class="col-md-6">
+            <div><h4>@Html.DisplayNameFor(model => model.Name) : @Html.DisplayFor(modelItem => item.Name)</h4></div>
+            <div> @Html.DisplayNameFor(model => model.FatherName) : @Html.DisplayFor(modelItem => item.FatherName)</div>
+            <div>@Html.DisplayNameFor(model => model.DateOfBirth) : @Html.DisplayFor(modelItem => item.DateOfBirth)</div>
+            <div>@Html.DisplayNameFor(model => model.EmailID) : @Html.DisplayFor(modelItem => item.EmailID)</div>
+            <div>@Html.DisplayNameFor(model => model.CNIC) : @Html.DisplayFor(modelItem => item.CNIC)</div>
+            <div>@Html.DisplayNameFor(model => model.Address) : @Html.DisplayFor(modelItem => item.Address)</div>
+        </div>
+        <div class="col-md-6">
+            <br />
+            <div>@Html.DisplayNameFor(model => model.MobileNumber) : @Html.DisplayFor(modelItem => item.MobileNumber)</div>
+            <div>@Html.DisplayNameFor(model => model.Gender) : @Html.DisplayFor(modelItem => item.Gender)</div>
+            <div>@Html.DisplayNameFor(model => model.LastPassedExam) : @Html.DisplayFor(modelItem => item.LastPassedExam)</div>
+            <div>@Html.DisplayNameFor(model => model.RegistrationNumber) : @Html.DisplayFor(modelItem => item.RegistrationNumber)</div>
+            <div>@Html.DisplayNameFor(model => model.EnrolledClassName) : @Html.DisplayFor(modelItem => item.EnrolledClassName)</div>
+            <div>@Html.DisplayNameFor(model => model.EnrolledSectionName) : @Html.DisplayFor(modelItem => item.EnrolledSectionName)</div>
+            <div>@Html.DisplayNameFor(model => model.EmailIDParents) : @Html.DisplayFor(modelItem => item.EmailIDParents)</div>
+        </div>
 
-@foreach (var item in Model) {
-    <tr class="row">
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FatherName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CNIC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InstituteName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MobileNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastPassedExam)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastExamTotalMarks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastExamObtainedMarks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegistrationNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnrolledClassName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnrolledSectionName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailIDParents)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProfilePicture)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+    </div>
+        <hr />
+        <div class="col-md-offset-8 col-md=4">
+            <span class="btn btn-warning" id="MyButton">  @Html.ActionLink("Edit", "Edit", new { id = item.ID })</span> |
+            <span class="btn btn-success" id="MyButton">  @Html.ActionLink("Details", "Details", new { id = item.ID })</span> |
+            <span class="btn btn-danger" id="MyButton">  @Html.ActionLink("Delete", "Delete", new { id = item.ID })</span>
+        </div>
+        }
+    }
