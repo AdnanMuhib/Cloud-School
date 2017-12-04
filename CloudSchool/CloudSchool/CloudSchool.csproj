@@ -218,6 +218,7 @@
     <Content Include="Images\CSE dept logo.png" />
     <Content Include="Images\Exam_Results.jpg" />
     <Content Include="Images\internet-speed.png" />
+    <Content Include="Images\lincoln-vampire.jpg" />
     <Content Include="Images\Marketing.jpg" />
     <Content Include="Images\rack_server_unlock.png" />
     <Content Include="Images\window_domain.png" />
@@ -321,6 +322,11 @@
     <Content Include="Views\Dashboards\Details.cshtml" />
     <Content Include="Views\Dashboards\Edit.cshtml" />
     <Content Include="Views\Dashboards\Index.cshtml" />
+    <Content Include="Views\Teachers\InstituteTeachers.cshtml" />
+    <Content Include="Views\Teachers\AddTeacher.cshtml" />
+    <Content Include="Views\Teachers\EditTeacher.cshtml" />
+    <Content Include="Views\Teachers\DisplayTeacher.cshtml" />
+    <Content Include="Views\Teachers\DeleteTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

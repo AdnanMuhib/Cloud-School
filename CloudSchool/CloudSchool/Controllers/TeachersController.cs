@@ -19,6 +19,11 @@ namespace CloudSchool.Controllers
         {
             return View(db.Teachers.ToList());
         }
+        // GET: Teachers
+        public ActionResult InstituteTeachers()
+        {
+            return View(db.Teachers.ToList());
+        }
 
         // GET: Teachers/Details/5
         public ActionResult Details(int? id)
@@ -34,9 +39,29 @@ namespace CloudSchool.Controllers
             }
             return View(teacher);
         }
+        // GET: Teachers/Details/5
+        public ActionResult DisplayTeacher(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher == null)
+            {
+                return HttpNotFound();
+            }
+            return View(teacher);
+        }
+
 
         // GET: Teachers/Create
         public ActionResult Create()
+        {
+            return View();
+        }
+        // GET: Teachers/Create
+        public ActionResult AddTeacher()
         {
             return View();
         }
@@ -57,6 +82,19 @@ namespace CloudSchool.Controllers
 
             return View(teacher);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddTeacher([Bind(Include = "ID,Qualification,Experience,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Teacher teacher)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Teachers.Add(teacher);
+                db.SaveChanges();
+                return RedirectToAction("InstituteTeachers");
+            }
+
+            return View(teacher);
+        }
 
         // GET: Teachers/Edit/5
         public ActionResult Edit(int? id)
@@ -72,7 +110,20 @@ namespace CloudSchool.Controllers
             }
             return View(teacher);
         }
-
+        // GET: Teachers/Edit/5
+        public ActionResult EditTeacher(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher == null)
+            {
+                return HttpNotFound();
+            }
+            return View(teacher);
+        }
         // POST: Teachers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -88,9 +139,35 @@ namespace CloudSchool.Controllers
             }
             return View(teacher);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditTeacher([Bind(Include = "ID,Qualification,Experience,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Teacher teacher)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(teacher).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("InstituteTeachers");
+            }
+            return View(teacher);
+        }
 
         // GET: Teachers/Delete/5
         public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher == null)
+            {
+                return HttpNotFound();
+            }
+            return View(teacher);
+        }
+        // GET: Teachers/Delete/5
+        public ActionResult DeleteTeacher(int? id)
         {
             if (id == null)
             {
@@ -113,6 +190,16 @@ namespace CloudSchool.Controllers
             db.Teachers.Remove(teacher);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        // POST: Teachers/Delete/5
+        [HttpPost, ActionName("DeleteTeacher")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedTeacher(int id)
+        {
+            Teacher teacher = db.Teachers.Find(id);
+            db.Teachers.Remove(teacher);
+            db.SaveChanges();
+            return RedirectToAction("InstituteTeachers");
         }
 
         protected override void Dispose(bool disposing)

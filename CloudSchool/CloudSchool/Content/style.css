@@ -154,10 +154,10 @@ margin-bottom:5px;
 color:orangered;
 }
 #ICON-SideBar a {
--webkit-transition: color 0.5s ease-out;
--webkit-transition: font-size 0.5s ease-out;
+/*-webkit-transition: color 0.3s ease-out;*/
+-webkit-transition: font-size 0.3s ease-out;
 }
 #ICON-SideBar a:hover {
 font-size:xx-large;
-color:blue;
+
 }

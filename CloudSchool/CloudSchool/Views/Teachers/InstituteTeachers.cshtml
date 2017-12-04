@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CloudSchool.Models.Teacher>
+
+@{
+    ViewBag.Title = "InstituteTeachers";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+}
+
+<h2>Institute Teachers</h2>
+
+<div style="width:100%;" class="row">
+    <span id="MyButton" class="btn btn-success" style="float:right"> @Html.ActionLink("Add Teacher", "AddTeacher")</span>
+</div>
+@{
+    var number = 1;
+}
+@foreach (var item in Model)
+{
+    <h4>@number</h4>
+
+        number = number + 1;
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div>  <h3>@Html.DisplayNameFor(model => model.Name) : @Html.DisplayFor(modelItem => item.Name)</h3></div>
+            <div>  @Html.DisplayNameFor(model => model.FatherName) : @Html.DisplayFor(modelItem => item.FatherName)</div>
+            <div>@Html.DisplayNameFor(model => model.DateOfBirth) : @Html.DisplayFor(modelItem => item.DateOfBirth)</div>
+            <div>@Html.DisplayNameFor(model => model.EmailID) : @Html.DisplayFor(modelItem => item.EmailID)</div>
+            <div>@Html.DisplayNameFor(model => model.CNIC) : @Html.DisplayFor(modelItem => item.CNIC)</div>
+        </div>
+        <div class="col-md-6">
+            <br />
+            <br />
+            <br />
+            <div>  @Html.DisplayNameFor(model => model.Address): @Html.DisplayFor(modelItem => item.Address)</div>
+            <div>
+                @Html.DisplayNameFor(model => model.MobileNumber):  @Html.DisplayFor(modelItem => item.MobileNumber)
+            </div>
+            <div>
+                @Html.DisplayNameFor(model => model.Gender) : @Html.DisplayFor(modelItem => item.Gender)
+            </div>
+            <div>
+                @Html.DisplayNameFor(model => model.Qualification) : @Html.DisplayFor(modelItem => item.Qualification)
+            </div>
+            <div>
+                @Html.DisplayNameFor(model => model.Experience) : @Html.DisplayFor(modelItem => item.Experience)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-6 col-md-6">
+                <span class="btn btn-warning" id="MyButton">@Html.ActionLink("Edit", "EditTeacher", new { id = item.ID })</span> |
+                <span class="btn btn-success" id="MyButton">@Html.ActionLink("Details", "DisplayTeacher", new { id = item.ID })</span> |
+                <span class="btn btn-danger" id="MyButton">@Html.ActionLink("Delete", "DeleteTeacher", new { id = item.ID })</span>
+            </div>
+    </div>
+}
