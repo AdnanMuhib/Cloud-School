@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CloudSchool.Models.ClassForStudents>
+
+@{
+    ViewBag.Title = "Courses";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+}
+
+<h2>Courses</h2>
+
+<p>
+    <span class="btn btn-success" id="MyButton">@Html.ActionLink("Add New Courses", "Create")</span>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfSections)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfSections)
+        </td>
+        <td>
+            <span class="btn btn-warning" id="MyButton">@Html.ActionLink("Edit", "Edit", new { id = item.ID })</span> |
+            <span class="btn btn-success" id="MyButton">@Html.ActionLink("Details", "Details", new { id = item.ID })</span> |
+            <span class="btn btn-danger" id="MyButton">@Html.ActionLink("Delete", "Delete", new { id = item.ID })</span>
+        </td>
+    </tr>
+}
+
+</table>

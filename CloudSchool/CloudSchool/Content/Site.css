@@ -337,6 +337,56 @@ textarea.form-control {
     color:white;
     font-size:large;
 }
+.stylishDropDown select{
+   width: 100%;
+   padding: 1px;
+   font-size: 16px;
+   line-height: 1.5;
+   border: 0px;
+   border: 1px solid #cccccc;
+   border-radius: 4px;
+   height: 34px;
+   -webkit-appearance: none;
+}
 
 
+.dropbtn {
+    background-color: brown;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: brown;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color:orangered
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: orangered;
+}

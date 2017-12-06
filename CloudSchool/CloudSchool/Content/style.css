@@ -155,9 +155,11 @@ color:orangered;
 }
 #ICON-SideBar a {
 /*-webkit-transition: color 0.3s ease-out;*/
--webkit-transition: font-size 0.3s ease-out;
+-webkit-transition: font-size 0.3s ease-in;
 }
 #ICON-SideBar a:hover {
 font-size:xx-large;
 
 }
+
+

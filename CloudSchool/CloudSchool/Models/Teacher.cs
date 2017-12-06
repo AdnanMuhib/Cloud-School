@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CloudSchool.Models
 {
@@ -15,6 +16,7 @@ namespace CloudSchool.Models
         public String ProfilePicture { get; set; }
         [DisplayName("Subjects Taught by the Teacher")]
         public List<CourseSubject> subjects { get; set; }
-
+        //[HiddenInput(DisplayValue = false)]
+        //public int SchoolID { get; set; }
     }
 }

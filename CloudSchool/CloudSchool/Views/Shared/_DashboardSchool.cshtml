@@ -15,6 +15,12 @@
         .body-content {
         padding-left:0px;
         }
+        .dropbtn {
+        background-color:black;
+        }
+        .dropdown-content{
+            background-color:black;
+        }
     </style>
     <link type="text/css" href="~/Content/style.css" rel="stylesheet"/>
 </head>
@@ -51,9 +57,11 @@
                             <div class="side-menu-container">
                                 <ul class="nav navbar-nav">
                                     <li class="active"><span class="glyphicon glyphicon-dashboard" id="ICON-SideBar">@Html.ActionLink("Dashboard", "Index", "Dashboards")</span></li>
+
                                     <li ><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Teachers", "InstituteTeachers", "Teachers")</span></li>
+
                                     <li ><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Students", "Index", "Students")</span></li>
-                                    <li ><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Courses", "Index", "Dashboards")</span></li>
+                                    <li ><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Courses", "Index", "Courses")</span></li>
                                     <li ><span class="glyphicon glyphicon-folder-open" id="ICON-SideBar">@Html.ActionLink("Subjects", "Index", "Teachers")</span></li>
                                     <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
                                 </ul>

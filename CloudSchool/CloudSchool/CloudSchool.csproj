@@ -168,8 +168,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ClassForStudentsController.cs" />
     <Compile Include="Controllers\ClassSectionsController.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\CourseSubjectsController.cs" />
     <Compile Include="Controllers\DashboardsController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
@@ -281,11 +281,6 @@
     <Content Include="Views\CourseSubjects\Details.cshtml" />
     <Content Include="Views\CourseSubjects\Edit.cshtml" />
     <Content Include="Views\CourseSubjects\Index.cshtml" />
-    <Content Include="Views\ClassForStudents\Create.cshtml" />
-    <Content Include="Views\ClassForStudents\Delete.cshtml" />
-    <Content Include="Views\ClassForStudents\Details.cshtml" />
-    <Content Include="Views\ClassForStudents\Edit.cshtml" />
-    <Content Include="Views\ClassForStudents\Index.cshtml" />
     <Content Include="Views\ClassSections\Create.cshtml" />
     <Content Include="Views\ClassSections\Delete.cshtml" />
     <Content Include="Views\ClassSections\Details.cshtml" />
@@ -312,10 +307,6 @@
     <Content Include="Views\Institutes\Edit.cshtml" />
     <Content Include="Views\Institutes\Index.cshtml" />
     <Content Include="Views\Shared\_DashboardSchool.cshtml" />
-    <Content Include="Views\Dashboards\Create.cshtml" />
-    <Content Include="Views\Dashboards\Delete.cshtml" />
-    <Content Include="Views\Dashboards\Details.cshtml" />
-    <Content Include="Views\Dashboards\Edit.cshtml" />
     <Content Include="Views\Dashboards\Index.cshtml" />
     <Content Include="Views\Teachers\InstituteTeachers.cshtml" />
     <Content Include="Views\Teachers\AddTeacher.cshtml" />
@@ -327,6 +318,11 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\Courses\Create.cshtml" />
+    <Content Include="Views\Courses\Delete.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
+    <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
