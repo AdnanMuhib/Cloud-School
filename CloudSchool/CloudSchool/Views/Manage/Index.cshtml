@@ -1,10 +1,30 @@
-﻿@model CloudSchool.Models.IndexViewModel
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using CloudSchool.Models;
+@model CloudSchool.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Manage Account";
 }
 
-<h2>@ViewBag.Title.</h2>
+@{
+    var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var currentUser = manager.FindById(User.Identity.GetUserId());
+}
 
+<h2>Profile Settings</h2>
+<div class="well-lg">
+    <div class="row">
+        <h1 class="col-md-6">
+            @currentUser.UserName
+        </h1>
+        <div class="col-md-6">
+            <img src="@currentUser.ProfilePicture" class="img img-thumbnail img-responsive" width="200px" height="150px" />
+            <div class="row">
+                <span class="btn btn-primary" id="MyButton"><a>Change Profile Picture</a></span>
+            </div>
+        </div>
+    </div>
+</div>
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <h4>Change your account settings</h4>
@@ -30,13 +50,13 @@
         </dd>
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
+
              See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
+
              Uncomment the following block after you have set up two-factor authentication
         *@
-        @*  
+        @*
             <dt>Phone Number:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None")

@@ -75,6 +75,8 @@ namespace CloudSchool.Models
         [Display(Name = "User Name")]
         public string UserName { get; set; }
 
+        [Display(Name = "Profile Picture")]
+        public string ProfilePicture { get; set; }
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

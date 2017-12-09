@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CloudSchool.Models;
+using System.IO;
 
 namespace CloudSchool.Controllers
 {
@@ -152,11 +153,18 @@ namespace CloudSchool.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase imgFile)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                string fileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+                string extension = Path.GetExtension(imgFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                model.ProfilePicture = "/Images/Accounts/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Images/Accounts/"), fileName);
+                imgFile.SaveAs(fileName);
+
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ProfilePicture = model.ProfilePicture };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
