@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CloudSchool.Models
 {
@@ -19,5 +20,8 @@ namespace CloudSchool.Models
         public string EndingRegistrationNumber { set; get; }
         [DisplayName("List of Students in The Section")]
         public List<Student> Students { get; set; }
+        // School ID as a foreign key
+        [HiddenInput(DisplayValue = false)]
+        public string SchoolID { get; set; }
     }
 }

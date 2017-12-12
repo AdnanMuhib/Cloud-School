@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CloudSchool.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CloudSchool.Controllers
 {
@@ -17,12 +20,15 @@ namespace CloudSchool.Controllers
         // GET: Teachers
         public ActionResult Index()
         {
+
             return View(db.Teachers.ToList());
         }
         // GET: Teachers
         public ActionResult InstituteTeachers()
         {
-            return View(db.Teachers.ToList());
+            string id = User.Identity.GetUserId();
+            var teachers = db.Teachers.Where(d => d.SchoolID.Equals(id));
+            return View(teachers.ToList());
         }
 
         // GET: Teachers/Details/5
@@ -56,6 +62,7 @@ namespace CloudSchool.Controllers
 
 
         // GET: Teachers/Create
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Create()
         {
             return View();
@@ -71,6 +78,7 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Create([Bind(Include = "ID,Qualification,Experience,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Teacher teacher)
         {
             if (ModelState.IsValid)
@@ -83,13 +91,51 @@ namespace CloudSchool.Controllers
             return View(teacher);
         }
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult AddTeacher([Bind(Include = "ID,Qualification,Experience,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Teacher teacher)
+        public async System.Threading.Tasks.Task<ActionResult> AddTeacher([Bind(Include = "ID,Qualification,Experience,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender,SchoolID")] Teacher teacher, HttpPostedFileBase imgFile)
         {
+            string fileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+            string extension = Path.GetExtension(imgFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            teacher.ProfilePicture = "/Images/Accounts/" + fileName;
+
+            fileName = Path.Combine(Server.MapPath("~/Images/Accounts/"), fileName);
+
+
+            teacher.SchoolID = User.Identity.GetUserId();
+            teacher.InstituteName = User.Identity.GetUserName();
+
             if (ModelState.IsValid)
             {
-                db.Teachers.Add(teacher);
-                db.SaveChanges();
+                // creating new Account in the Identity Manager
+                ApplicationDbContext context = new ApplicationDbContext();
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+                var user = new ApplicationUser();
+                user.UserName = teacher.Name;
+                user.Email = teacher.EmailID;
+                user.ProfilePicture = teacher.ProfilePicture;
+                string password = teacher.Password;
+
+                var chkusr = UserManager.Create(user, password);
+
+
+                if (chkusr.Succeeded)
+                {
+                    imgFile.SaveAs(fileName);
+                    db.Teachers.Add(teacher);
+                    db.SaveChanges();
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.AddToRoleAsync(user.Id, "Teacher");
+                    return RedirectToAction("InstituteTeachers", "Teachers");
+                }
+
                 return RedirectToAction("InstituteTeachers");
             }
 
@@ -97,6 +143,7 @@ namespace CloudSchool.Controllers
         }
 
         // GET: Teachers/Edit/5
+        [Authorize(Roles = "SchoolAdmin, Teacher")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -129,6 +176,7 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SchoolAdmin, Teacher")]
         public ActionResult Edit([Bind(Include = "ID,Qualification,Experience,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Teacher teacher)
         {
             if (ModelState.IsValid)
@@ -141,6 +189,7 @@ namespace CloudSchool.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SchoolAdmin, Teacher")]
         public ActionResult EditTeacher([Bind(Include = "ID,Qualification,Experience,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Teacher teacher)
         {
             if (ModelState.IsValid)
@@ -153,6 +202,7 @@ namespace CloudSchool.Controllers
         }
 
         // GET: Teachers/Delete/5
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -167,6 +217,7 @@ namespace CloudSchool.Controllers
             return View(teacher);
         }
         // GET: Teachers/Delete/5
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult DeleteTeacher(int? id)
         {
             if (id == null)
@@ -184,6 +235,7 @@ namespace CloudSchool.Controllers
         // POST: Teachers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Teacher teacher = db.Teachers.Find(id);
@@ -194,6 +246,7 @@ namespace CloudSchool.Controllers
         // POST: Teachers/Delete/5
         [HttpPost, ActionName("DeleteTeacher")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult DeleteConfirmedTeacher(int id)
         {
             Teacher teacher = db.Teachers.Find(id);

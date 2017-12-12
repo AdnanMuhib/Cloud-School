@@ -17,12 +17,13 @@ namespace CloudSchool.Controllers
     public class AccountController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();
+        CloudSchoolDbContext db = new CloudSchoolDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
-            context = new ApplicationDbContext();
+
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -144,6 +145,7 @@ namespace CloudSchool.Controllers
         {
             ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Equals("Admin"))
                                             .ToList(), "Name", "Name");
+            ViewBag.SchoolName = new SelectList(db.Institutes.ToList(), "Name", "Name");
             //ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
             return View();
         }
@@ -163,6 +165,7 @@ namespace CloudSchool.Controllers
                 model.ProfilePicture = "/Images/Accounts/" + fileName;
                 fileName = Path.Combine(Server.MapPath("~/Images/Accounts/"), fileName);
                 imgFile.SaveAs(fileName);
+
 
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ProfilePicture = model.ProfilePicture };
                 var result = await UserManager.CreateAsync(user, model.Password);

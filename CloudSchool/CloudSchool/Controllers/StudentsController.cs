@@ -36,6 +36,7 @@ namespace CloudSchool.Controllers
         }
 
         // GET: Students/Create
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +47,7 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Create([Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student)
         {
             if (ModelState.IsValid)
@@ -59,6 +61,7 @@ namespace CloudSchool.Controllers
         }
 
         // GET: Students/Edit/5
+        [Authorize(Roles = "SchoolAdmin, Teacher")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +81,7 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SchoolAdmin, Teacher")]
         public ActionResult Edit([Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student)
         {
             if (ModelState.IsValid)
@@ -90,7 +94,7 @@ namespace CloudSchool.Controllers
         }
 
         // GET: Students/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

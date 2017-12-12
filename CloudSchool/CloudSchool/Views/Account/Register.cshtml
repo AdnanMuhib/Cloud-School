@@ -49,13 +49,38 @@
             <div class="stylishDropDown">@Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, "Select Your Role")</div>
         </div>
     </div>
+    @*<div class="form-group">
+        @Html.Label("Institute Name", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <div class="stylishDropDown">@Html.DropDownList("", (SelectList)ViewBag.SchoolName, "Select Your Role")</div>
+        </div>
+    </div>*@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-lg btn-primary" value="Register" id="MyButton"/>
         </div>
     </div>
 }
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#Institute">Institute</a></li>
+    <li><a data-toggle="tab" href="#menu1"></a></li>
+    <li><a data-toggle="tab" href="#menu2"></a></li>
+    <li><a data-toggle="tab" href="#menu3"></a></li>
+</ul>
 
+<div class="tab-content">
+    <div id="Institute" class="tab-pane fade in active">
+    </div>
+    <div id="menu1" class="tab-pane fade">
+
+    </div>
+    <div id="menu2" class="tab-pane fade">
+
+    </div>
+    <div id="menu3" class="tab-pane fade">
+
+    </div>
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

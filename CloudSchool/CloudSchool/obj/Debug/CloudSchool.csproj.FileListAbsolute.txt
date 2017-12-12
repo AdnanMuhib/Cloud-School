@@ -64,9 +64,9 @@ C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\bin\Mic
 C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.csprojResolveAssemblyReference.cache
 C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.dll
 C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.pdb
 C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.InitialCreate.resources
 C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.csproj.GenerateResource.Cache
 C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.initial.resources
+C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.csprojResolveAssemblyReference.cache

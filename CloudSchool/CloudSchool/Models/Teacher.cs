@@ -16,7 +16,7 @@ namespace CloudSchool.Models
         public String ProfilePicture { get; set; }
         [DisplayName("Subjects Taught by the Teacher")]
         public List<CourseSubject> subjects { get; set; }
-        //[HiddenInput(DisplayValue = false)]
-        //public int SchoolID { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public string SchoolID { get; set; }
     }
 }

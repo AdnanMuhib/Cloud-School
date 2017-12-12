@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CloudSchool.Models
 {
@@ -28,6 +29,9 @@ namespace CloudSchool.Models
         [DisplayName("Profile Picture")]
         [DataType(DataType.ImageUrl)]
         public String ProfilePicture { get; set; }
+        // School ID as a foreign key
+        [HiddenInput(DisplayValue = false)]
+        public string SchoolID { get; set; }
 
     }
 }

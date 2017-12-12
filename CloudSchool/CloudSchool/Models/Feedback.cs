@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CloudSchool.Models
 {
@@ -15,5 +16,8 @@ namespace CloudSchool.Models
         [DisplayName("Details about the Feedback")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        // School ID as a foreign key
+        [HiddenInput(DisplayValue = false)]
+        public string SchoolID { get; set; }
     }
 }
