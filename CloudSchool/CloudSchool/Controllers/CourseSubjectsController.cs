@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CloudSchool.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CloudSchool.Controllers
 {
@@ -17,7 +18,10 @@ namespace CloudSchool.Controllers
         // GET: CourseSubjects
         public ActionResult Index()
         {
-            return View(db.Subjects.ToList());
+            
+            string id = User.Identity.GetUserId();
+            var subjects = db.Subjects.Where(d => d.SchoolID.Equals(id));
+            return View(subjects.ToList());
         }
 
         // GET: CourseSubjects/Details/5
@@ -50,6 +54,7 @@ namespace CloudSchool.Controllers
         {
             if (ModelState.IsValid)
             {
+                courseSubject.SchoolID = User.Identity.GetUserId();
                 db.Subjects.Add(courseSubject);
                 db.SaveChanges();
                 return RedirectToAction("Index");

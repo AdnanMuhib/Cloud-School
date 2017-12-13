@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CloudSchool.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CloudSchool.Controllers
 {
@@ -17,7 +20,9 @@ namespace CloudSchool.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            return View(db.Students.ToList());
+            string id = User.Identity.GetUserId();
+            var students = db.Students.Where(d => d.SchoolID.Equals(id));
+            return View(students.ToList());
         }
 
         // GET: Students/Details/5
@@ -48,17 +53,17 @@ namespace CloudSchool.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "SchoolAdmin")]
-        public ActionResult Create([Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Students.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //public ActionResult Create([Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Students.Add(student);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(student);
-        }
+        //    return View(student);
+        //}
 
         // GET: Students/Edit/5
         [Authorize(Roles = "SchoolAdmin, Teacher")]
@@ -119,6 +124,59 @@ namespace CloudSchool.Controllers
             db.Students.Remove(student);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async System.Threading.Tasks.Task<ActionResult> Create([ Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student, HttpPostedFileBase imgFile)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+            string extension = Path.GetExtension(imgFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            student.ProfilePicture = "/Images/Accounts/" + fileName;
+
+            fileName = Path.Combine(Server.MapPath("~/Images/Accounts/"), fileName);
+
+
+            student.SchoolID = User.Identity.GetUserId();
+            student.InstituteName = User.Identity.GetUserName();
+
+            if (ModelState.IsValid)
+            {
+                // creating new Account in the Identity Manager
+                ApplicationDbContext context = new ApplicationDbContext();
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+                var user = new ApplicationUser();
+                user.UserName = student.Name;
+                user.Email = student.EmailID;
+                user.ProfilePicture = student.ProfilePicture;
+                string password = student.Password;
+
+                var chkusr = UserManager.Create(user, password);
+
+
+                if (chkusr.Succeeded)
+                {
+                    imgFile.SaveAs(fileName);
+                    db.Students.Add(student);
+                    db.SaveChanges();
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.AddToRoleAsync(user.Id, "Teacher");
+                    return RedirectToAction("Index", "Teachers");
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return View(student);
         }
 
         protected override void Dispose(bool disposing)

@@ -176,6 +176,13 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                <input type="file" name="imgFile" class="input-files" accept=".png, .jpg, .jpeg, .gif, .tif" required />
+            </div>
+        </div>
+
         @*<div class="form-group">
             @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

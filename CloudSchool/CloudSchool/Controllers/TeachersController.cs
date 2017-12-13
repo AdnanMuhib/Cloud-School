@@ -90,6 +90,7 @@ namespace CloudSchool.Controllers
 
             return View(teacher);
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
