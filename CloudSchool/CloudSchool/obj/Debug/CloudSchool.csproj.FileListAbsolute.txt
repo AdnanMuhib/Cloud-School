@@ -142,3 +142,8 @@ C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\
 C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.csproj.GenerateResource.Cache
 C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.dll
 C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.pdb
+C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.CourseID.resources
+C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.CourseID2.resources
+C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.SectonId.resources
+C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.IEnumberable.resources
+C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.IEnumberable1.resources

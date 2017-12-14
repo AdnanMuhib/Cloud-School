@@ -69,12 +69,7 @@
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            @Html.Label("Profile Picture/Logo:", new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                <input type="file" name="imgFile" class="input-files" accept=".png, .jpg, .jpeg, .gif, .tif" required />
-            </div>
-        </div>
+        
 @if (Request.IsAuthenticated)
 {
         @*<div class="form-group">
@@ -87,7 +82,7 @@
         <div class="form-group">
             <input type="hidden" name="InstituteName" value="@User.Identity.GetUserName()"/>
             <input type="hidden" name="SchoolID" value="@User.Identity.GetUserId()"/>
-            <input />
+            
         </div>
 }
         <div class="form-group">
@@ -145,11 +140,17 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.EnrolledClassName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EnrolledClassName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EnrolledClassName, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        <div class="form-group">
+            @Html.Label("Select Course", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <div class="stylishDropDown">@Html.DropDownList("EnrolledClassName", (SelectList)ViewBag.Courses, "Choose Courses")</div>
             </div>
         </div>
 
@@ -176,12 +177,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                <input type="file" name="imgFile" class="input-files" accept=".png, .jpg, .jpeg, .gif, .tif" required />
-            </div>
-        </div>
+        
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "control-label col-md-2" })

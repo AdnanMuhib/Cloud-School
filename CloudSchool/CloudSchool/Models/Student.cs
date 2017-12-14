@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -19,9 +20,9 @@ namespace CloudSchool.Models
         [DisplayName("Registration Number")]
         public String RegistrationNumber { get; set; }
         [DisplayName("Enrolled Class Name")]
-        public String EnrolledClassName { get; set; }
+        public IEnumerable<ClassForStudents> EnrolledClassName { get; set; }
         [DisplayName("Enrolled Section Name")]
-        public String EnrolledSectionName { get; set; }
+        public string EnrolledSectionName { get; set; }
         [DisplayName("Parents Email ID")]
         public String EmailIDParents { get; set; }
         [DisplayName("List of Course Subjects Read By the Student")]
@@ -32,6 +33,11 @@ namespace CloudSchool.Models
         // School ID as a foreign key
         [HiddenInput(DisplayValue = false)]
         public string SchoolID { get; set; }
+        [Required]
+        [HiddenInput(DisplayValue = false)]
+        public int CourseID { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public int SectionID { get; set; }
 
     }
 }

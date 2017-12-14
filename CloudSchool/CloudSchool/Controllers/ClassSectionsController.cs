@@ -38,6 +38,7 @@ namespace CloudSchool.Controllers
         // GET: ClassSections/Create
         public ActionResult Create()
         {
+            ViewBag.Courses = new SelectList(db.Classes.ToList(), "Name", "Name");
             return View();
         }
 
@@ -48,6 +49,8 @@ namespace CloudSchool.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,SectionTitle,ClassName,StartingRegistrationNumber,EndingRegistrationNumber")] ClassSection classSection)
         {
+            var classes = db.Classes.Single(c => c.Name.Equals(classSection.ClassName));
+            classSection.CourseID = classes.ID;
             if (ModelState.IsValid)
             {
                 db.Sections.Add(classSection);

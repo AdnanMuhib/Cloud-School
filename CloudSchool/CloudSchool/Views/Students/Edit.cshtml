@@ -152,13 +152,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         @Html.LabelFor(model => model.EnrolledSectionName, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
                             @Html.EditorFor(model => model.EnrolledSectionName, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.EnrolledSectionName, "", new { @class = "text-danger" })
                         </div>
-                    </div>
+                    </div>*@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.EmailIDParents, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -173,6 +173,13 @@
                         <div class="col-md-8">
                             @Html.EditorFor(model => model.ProfilePicture, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.ProfilePicture, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Select Section", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            <div class="stylishDropDown">@Html.DropDownList("EnrolledSectionName", (SelectList)ViewBag.Sections, "Choose Section")</div>
                         </div>
                     </div>
 

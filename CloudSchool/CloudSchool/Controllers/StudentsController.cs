@@ -44,6 +44,7 @@ namespace CloudSchool.Controllers
         [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Create()
         {
+            ViewBag.Courses = new SelectList(db.Classes.ToList(), "Name", "Name");
             return View();
         }
 
@@ -69,11 +70,15 @@ namespace CloudSchool.Controllers
         [Authorize(Roles = "SchoolAdmin, Teacher")]
         public ActionResult Edit(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
+            var sections = db.Sections.Where(s => s.CourseID.Equals(student.CourseID));
+            ViewBag.Sections = new SelectList(sections, "SectionTitle", "SectionTitle");
+            
             if (student == null)
             {
                 return HttpNotFound();
@@ -89,6 +94,9 @@ namespace CloudSchool.Controllers
         [Authorize(Roles = "SchoolAdmin, Teacher")]
         public ActionResult Edit([Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student)
         {
+            var sections = db.Sections.Single(c => c.SectionTitle.Equals(student.EnrolledSectionName));
+            student.SectionID = sections.ID;
+
             if (ModelState.IsValid)
             {
                 db.Entry(student).State = EntityState.Modified;
@@ -132,6 +140,9 @@ namespace CloudSchool.Controllers
         [ValidateAntiForgeryToken]
         public async System.Threading.Tasks.Task<ActionResult> Create([ Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student, HttpPostedFileBase imgFile)
         {
+            ViewBag.Sections = new SelectList(db.Sections, "SectionTitle", "SectionTitle");
+            var classes = db.Classes.Single(c => c.Name.Equals(student.EnrolledClassName));
+            student.CourseID = classes.ID;
             string fileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
             string extension = Path.GetExtension(imgFile.FileName);
             fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;

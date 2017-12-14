@@ -23,5 +23,7 @@ namespace CloudSchool.Models
         // School ID as a foreign key
         [HiddenInput(DisplayValue = false)]
         public string SchoolID { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public int CourseID { get; set; }
     }
 }

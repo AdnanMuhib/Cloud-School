@@ -191,6 +191,26 @@
     <Compile Include="Migrations\201712111148182_initial.Designer.cs">
       <DependentUpon>201712111148182_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712131441472_CourseID.cs" />
+    <Compile Include="Migrations\201712131441472_CourseID.Designer.cs">
+      <DependentUpon>201712131441472_CourseID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712131455561_CourseID2.cs" />
+    <Compile Include="Migrations\201712131455561_CourseID2.Designer.cs">
+      <DependentUpon>201712131455561_CourseID2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712131526579_SectonId.cs" />
+    <Compile Include="Migrations\201712131526579_SectonId.Designer.cs">
+      <DependentUpon>201712131526579_SectonId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712131536485_IEnumberable.cs" />
+    <Compile Include="Migrations\201712131536485_IEnumberable.Designer.cs">
+      <DependentUpon>201712131536485_IEnumberable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712131542054_IEnumberable1.cs" />
+    <Compile Include="Migrations\201712131542054_IEnumberable1.Designer.cs">
+      <DependentUpon>201712131542054_IEnumberable1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassForStudents.cs" />
@@ -351,6 +371,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712111148182_initial.resx">
       <DependentUpon>201712111148182_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712131441472_CourseID.resx">
+      <DependentUpon>201712131441472_CourseID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712131455561_CourseID2.resx">
+      <DependentUpon>201712131455561_CourseID2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712131526579_SectonId.resx">
+      <DependentUpon>201712131526579_SectonId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712131536485_IEnumberable.resx">
+      <DependentUpon>201712131536485_IEnumberable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712131542054_IEnumberable1.resx">
+      <DependentUpon>201712131542054_IEnumberable1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
