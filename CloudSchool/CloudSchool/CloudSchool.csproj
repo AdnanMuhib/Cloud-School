@@ -329,11 +329,6 @@
     <Content Include="Views\Notifications\Details.cshtml" />
     <Content Include="Views\Notifications\Edit.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
-    <Content Include="Views\Institutes\Create.cshtml" />
-    <Content Include="Views\Institutes\Delete.cshtml" />
-    <Content Include="Views\Institutes\Details.cshtml" />
-    <Content Include="Views\Institutes\Edit.cshtml" />
-    <Content Include="Views\Institutes\Index.cshtml" />
     <Content Include="Views\Shared\_DashboardSchool.cshtml" />
     <Content Include="Views\Dashboards\Index.cshtml" />
     <Content Include="Views\Teachers\InstituteTeachers.cshtml" />
@@ -356,6 +351,11 @@
     <Content Include="Views\ClassSections\Details.cshtml" />
     <Content Include="Views\ClassSections\Edit.cshtml" />
     <Content Include="Views\ClassSections\Index.cshtml" />
+    <Content Include="Views\Institutes\Create.cshtml" />
+    <Content Include="Views\Institutes\Delete.cshtml" />
+    <Content Include="Views\Institutes\Details.cshtml" />
+    <Content Include="Views\Institutes\Edit.cshtml" />
+    <Content Include="Views\Institutes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

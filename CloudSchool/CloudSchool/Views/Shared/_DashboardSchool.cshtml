@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity;
+@using CloudSchool.Models;
+@using System.Web.Mvc;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Microsoft.AspNet.Identity.Owin;
+@using Microsoft.Owin.Security;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -57,14 +63,51 @@
                             <div class="side-menu-container">
                                 <ul class="nav navbar-nav">
                                     <li class="active"><span class="glyphicon glyphicon-dashboard" id="ICON-SideBar">@Html.ActionLink("Dashboard", "Index", "Dashboards")</span></li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        var user = User.Identity;
+                                        ApplicationDbContext context = new ApplicationDbContext();
+                                        var UserManager = new UserManager
+                                        <ApplicationUser>
+                                            (new UserStore<ApplicationUser>
+                                                (context));
+                                        var s = UserManager.GetRoles(user.GetUserId());
+                                        if (s[0].ToString() == "Admin")
+                                        {
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("My Profile", "Index", "Manage")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Institutes", "Index", "Institutes")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Teachers", "InstituteTeachers", "Teachers")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Students", "Index", "Students")</span></li>
+                                            <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Courses", "Index", "Courses")</span></li>
+                                            <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Sections", "Index", "ClassSections")</span></li>
+                                            <li><span class="glyphicon glyphicon-folder-open" id="ICON-SideBar">@Html.ActionLink("Subjects", "Index", "Coursesubjects")</span></li>
+                                            <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+                                        }
+                                        if (s[0].ToString() == "SchoolAdmin")
+                                        {
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("My Profile", "Index", "Manage")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Teachers", "InstituteTeachers", "Teachers")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Students", "Index", "Students")</span></li>
+                                            <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Courses", "Index", "Courses")</span></li>
+                                            <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Sections", "Index", "ClassSections")</span></li>
+                                            <li><span class="glyphicon glyphicon-folder-open" id="ICON-SideBar">@Html.ActionLink("Subjects", "Index", "Coursesubjects")</span></li>
+                                            <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+                                        }
+                                        if (s[0].ToString() == "Teacher")
+                                        {
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("My Profile", "Index", "Manage")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Students", "Index", "Students")</span></li>
+                                            <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+                                        }
+                                        if (s[0].ToString() == "Student")
+                                        {
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("My Profile", "Index", "Manage")</span></li>
+                                            <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+                                        }
 
-                                    <li ><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Teachers", "InstituteTeachers", "Teachers")</span></li>
+                                    }
 
-                                    <li ><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Students", "Index", "Students")</span></li>
-                                    <li ><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Courses", "Index", "Courses")</span></li>
-                                    <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Sections", "Index", "ClassSections")</span></li>
-                                    <li ><span class="glyphicon glyphicon-folder-open" id="ICON-SideBar">@Html.ActionLink("Subjects", "Index", "Coursesubjects")</span></li>
-                                    <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+
                                 </ul>
                             </div><!-- /.navbar-collapse -->
                         </nav>

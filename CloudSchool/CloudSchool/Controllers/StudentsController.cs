@@ -67,7 +67,7 @@ namespace CloudSchool.Controllers
         //}
 
         // GET: Students/Edit/5
-        [Authorize(Roles = "SchoolAdmin, Teacher")]
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Edit(int? id)
         {
 
@@ -91,7 +91,7 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "SchoolAdmin, Teacher")]
+        [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Edit([Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student)
         {
             var sections = db.Sections.Single(c => c.SectionTitle.Equals(student.EnrolledSectionName));

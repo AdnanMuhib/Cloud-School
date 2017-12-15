@@ -10,6 +10,7 @@ using CloudSchool.Models;
 
 namespace CloudSchool.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class InstitutesController : Controller
     {
         private CloudSchoolDbContext db = new CloudSchoolDbContext();
@@ -46,7 +47,7 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,TypeOfInstitute,PhoneNumber,Email,Password,Address,Logo")] Institute institute)
+        public ActionResult Create([Bind(Include = "ID,Name,TypeOfInstitute,PhoneNumber,Email,Password,Address,Logo,AccountID")] Institute institute)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +79,7 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,TypeOfInstitute,PhoneNumber,Email,Password,Address,Logo")] Institute institute)
+        public ActionResult Edit([Bind(Include = "ID,Name,TypeOfInstitute,PhoneNumber,Email,Password,Address,Logo,AccountID")] Institute institute)
         {
             if (ModelState.IsValid)
             {
