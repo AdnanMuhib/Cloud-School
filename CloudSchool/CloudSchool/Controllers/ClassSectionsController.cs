@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CloudSchool.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CloudSchool.Controllers
 {
@@ -17,7 +18,9 @@ namespace CloudSchool.Controllers
         // GET: ClassSections
         public ActionResult Index()
         {
-            return View(db.Sections.ToList());
+            string id = User.Identity.GetUserId();
+            var sections = db.Sections.Where(d => d.SchoolID.Equals(id));
+            return View(sections.ToList());
         }
 
         // GET: ClassSections/Details/5
@@ -38,7 +41,6 @@ namespace CloudSchool.Controllers
         // GET: ClassSections/Create
         public ActionResult Create()
         {
-            ViewBag.Courses = new SelectList(db.Classes.ToList(), "Name", "Name");
             return View();
         }
 
@@ -47,10 +49,8 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SectionTitle,ClassName,StartingRegistrationNumber,EndingRegistrationNumber")] ClassSection classSection)
+        public ActionResult Create([Bind(Include = "ID,SectionTitle,ClassName,StartingRegistrationNumber,EndingRegistrationNumber,SchoolID,CourseID")] ClassSection classSection)
         {
-            var classes = db.Classes.Single(c => c.Name.Equals(classSection.ClassName));
-            classSection.CourseID = classes.ID;
             if (ModelState.IsValid)
             {
                 db.Sections.Add(classSection);
@@ -81,7 +81,7 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,SectionTitle,ClassName,StartingRegistrationNumber,EndingRegistrationNumber")] ClassSection classSection)
+        public ActionResult Edit([Bind(Include = "ID,SectionTitle,ClassName,StartingRegistrationNumber,EndingRegistrationNumber,SchoolID,CourseID")] ClassSection classSection)
         {
             if (ModelState.IsValid)
             {

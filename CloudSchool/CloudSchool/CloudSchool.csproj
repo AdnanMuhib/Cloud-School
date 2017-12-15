@@ -211,6 +211,10 @@
     <Compile Include="Migrations\201712131542054_IEnumberable1.Designer.cs">
       <DependentUpon>201712131542054_IEnumberable1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712151922535_initial1.cs" />
+    <Compile Include="Migrations\201712151922535_initial1.Designer.cs">
+      <DependentUpon>201712151922535_initial1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassForStudents.cs" />
@@ -310,11 +314,6 @@
     <Content Include="Views\CourseSubjects\Details.cshtml" />
     <Content Include="Views\CourseSubjects\Edit.cshtml" />
     <Content Include="Views\CourseSubjects\Index.cshtml" />
-    <Content Include="Views\ClassSections\Create.cshtml" />
-    <Content Include="Views\ClassSections\Delete.cshtml" />
-    <Content Include="Views\ClassSections\Details.cshtml" />
-    <Content Include="Views\ClassSections\Edit.cshtml" />
-    <Content Include="Views\ClassSections\Index.cshtml" />
     <Content Include="Views\Teachers\Create.cshtml" />
     <Content Include="Views\Teachers\Delete.cshtml" />
     <Content Include="Views\Teachers\Details.cshtml" />
@@ -352,6 +351,11 @@
     <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\ClassSections\Create.cshtml" />
+    <Content Include="Views\ClassSections\Delete.cshtml" />
+    <Content Include="Views\ClassSections\Details.cshtml" />
+    <Content Include="Views\ClassSections\Edit.cshtml" />
+    <Content Include="Views\ClassSections\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -386,6 +390,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712131542054_IEnumberable1.resx">
       <DependentUpon>201712131542054_IEnumberable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712151922535_initial1.resx">
+      <DependentUpon>201712151922535_initial1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

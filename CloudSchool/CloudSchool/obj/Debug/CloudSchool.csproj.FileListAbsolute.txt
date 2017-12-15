@@ -147,3 +147,9 @@ C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\
 C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.SectonId.resources
 C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.IEnumberable.resources
 C:\Users\Hassan\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.IEnumberable1.resources
+C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.CourseID.resources
+C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.CourseID2.resources
+C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.SectonId.resources
+C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.IEnumberable.resources
+C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.IEnumberable1.resources
+C:\Users\AntiVirus\Documents\GitHub\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.initial1.resources

@@ -70,7 +70,7 @@ namespace CloudSchool.Controllers
         [Authorize(Roles = "SchoolAdmin, Teacher")]
         public ActionResult Edit(int? id)
         {
-            
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,7 +78,7 @@ namespace CloudSchool.Controllers
             Student student = db.Students.Find(id);
             var sections = db.Sections.Where(s => s.CourseID.Equals(student.CourseID));
             ViewBag.Sections = new SelectList(sections, "SectionTitle", "SectionTitle");
-            
+
             if (student == null)
             {
                 return HttpNotFound();

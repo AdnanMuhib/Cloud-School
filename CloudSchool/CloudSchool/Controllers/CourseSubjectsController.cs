@@ -18,7 +18,7 @@ namespace CloudSchool.Controllers
         // GET: CourseSubjects
         public ActionResult Index()
         {
-            
+
             string id = User.Identity.GetUserId();
             var subjects = db.Subjects.Where(d => d.SchoolID.Equals(id));
             return View(subjects.ToList());

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CloudSchool.Models
 {
@@ -40,7 +41,9 @@ namespace CloudSchool.Models
         [DisplayName("Logo of Institute")]
         [DataType(DataType.Upload)]
         public string Logo { get; set; }
-
+        // ID of the identity user for the institute
+        [HiddenInput(DisplayValue = false)]
+        public string AccountID { get; set; }
     }
     // Database for the Identity Model
     public class CloudSchoolDbContext : DbContext {

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
 }
 
 <h2>Index</h2>
@@ -23,6 +24,12 @@
         <th>
             @Html.DisplayNameFor(model => model.EndingRegistrationNumber)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SchoolID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseID)
+        </th>
         <th></th>
     </tr>
 
@@ -39,6 +46,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EndingRegistrationNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SchoolID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseID)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

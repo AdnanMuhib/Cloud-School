@@ -390,3 +390,6 @@ textarea.form-control {
 .dropdown:hover .dropbtn {
     background-color: orangered;
 }
+.form-horizontal .control-label {
+text-align:left;
+}

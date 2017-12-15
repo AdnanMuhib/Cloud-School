@@ -145,6 +145,7 @@ namespace CloudSchool.Controllers
         {
             ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Equals("Admin"))
                                             .ToList(), "Name", "Name");
+            ViewBag.Institutes = new SelectList(db.Institutes.ToList(), "Name", "Name");
             ViewBag.SchoolName = new SelectList(db.Institutes.ToList(), "Name", "Name");
             //ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
             return View();
@@ -189,7 +190,140 @@ namespace CloudSchool.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterInstitute(RegisterViewModel model, [Bind(Include = "ID,Name,TypeOfInstitute,PhoneNumber,Email,Password,Address,Logo")] Institute institute, HttpPostedFileBase imgFile)
+        {
+            if (ModelState.IsValid)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+                string extension = Path.GetExtension(imgFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                model.ProfilePicture = "/Images/Accounts/" + fileName;
+                model.UserRoles = "SchoolAdmin";
+                institute.Logo = model.ProfilePicture;
+                fileName = Path.Combine(Server.MapPath("~/Images/Accounts/"), fileName);
 
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ProfilePicture = model.ProfilePicture };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    imgFile.SaveAs(fileName);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    institute.AccountID = user.Id;
+                    db.Institutes.Add(institute);
+                    db.SaveChanges();
+                    await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    return RedirectToAction("Index", "Dashboards");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterTeacher(RegisterViewModel model, [Bind(Include = "ID,Qualification,Experience,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Teacher teacher, HttpPostedFileBase imgFile)
+        {
+            if (ModelState.IsValid)
+            {
+                var school = db.Institutes.Single(d => d.Name.Equals(teacher.InstituteName));
+                var schoolId = school.AccountID;
+                string fileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+                string extension = Path.GetExtension(imgFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                model.ProfilePicture = "/Images/Accounts/" + fileName;
+                model.UserRoles = "Teacher";
+
+                teacher.ProfilePicture = model.ProfilePicture;
+                teacher.EmailID = model.Email;
+                teacher.Name = model.UserName;
+                teacher.SchoolID = schoolId;
+
+                fileName = Path.Combine(Server.MapPath("~/Images/Accounts/"), fileName);
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ProfilePicture = model.ProfilePicture };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    imgFile.SaveAs(fileName);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // teacher.SchoolID = user.Id;
+                    db.Teachers.Add(teacher);
+                    db.SaveChanges();
+                    await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    return RedirectToAction("Index", "Dashboards");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterStudent(RegisterViewModel model, [Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student, HttpPostedFileBase imgFile)
+        {
+            if (ModelState.IsValid)
+            {
+                var school = db.Institutes.Single(d => d.Name.Equals(student.InstituteName));
+                var schoolId = school.AccountID;
+                string fileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+                string extension = Path.GetExtension(imgFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                model.ProfilePicture = "/Images/Accounts/" + fileName;
+                model.UserRoles = "Teacher";
+
+                student.ProfilePicture = model.ProfilePicture;
+                student.EmailID = model.Email;
+                student.Name = model.UserName;
+                student.SchoolID = schoolId;
+
+                fileName = Path.Combine(Server.MapPath("~/Images/Accounts/"), fileName);
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ProfilePicture = model.ProfilePicture };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    imgFile.SaveAs(fileName);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // teacher.SchoolID = user.Id;
+                    db.Students.Add(student);
+                    db.SaveChanges();
+                    await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    return RedirectToAction("Index", "Dashboards");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

@@ -69,7 +69,7 @@
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+
 @if (Request.IsAuthenticated)
 {
         @*<div class="form-group">
@@ -82,7 +82,6 @@
         <div class="form-group">
             <input type="hidden" name="InstituteName" value="@User.Identity.GetUserName()"/>
             <input type="hidden" name="SchoolID" value="@User.Identity.GetUserId()"/>
-            
         </div>
 }
         <div class="form-group">
@@ -177,7 +176,7 @@
             </div>
         </div>
 
-        
+
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "control-label col-md-2" })
