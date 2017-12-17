@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
 }
 
 <h2>Create</h2>
@@ -36,6 +37,21 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ObtainedMarks, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ObtainedMarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Select Teacher", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <div class="stylishDropDown">@Html.DropDownList("TeacherRegistrationNumber", (SelectList)ViewBag.Teachers, "Choose A Teacher")</div>
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            @Html.Label("Select Course", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <div class="stylishDropDown">@Html.DropDownList("CourseName", (SelectList)ViewBag.Courses, "Choose A Course")</div>
             </div>
         </div>
 
