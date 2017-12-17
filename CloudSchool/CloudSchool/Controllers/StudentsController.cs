@@ -157,7 +157,7 @@ namespace CloudSchool.Controllers
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
                 var user = new ApplicationUser();
-                user.UserName = student.Name;
+                user.UserName = student.RegistrationNumber;
                 user.Email = student.EmailID;
                 user.ProfilePicture = student.ProfilePicture;
                 string password = student.Password;
@@ -189,14 +189,17 @@ namespace CloudSchool.Controllers
         [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Edit(int? id)
         {
+            string idd = User.Identity.GetUserId();
+            ViewBag.Courses = new SelectList(db.Classes.Where(d => d.SchoolID.Equals(idd)).ToList(), "Name", "Name");
+            ViewBag.Sections = new SelectList(db.Sections.Where(d => d.SchoolID.Equals(idd)).ToList(), "SectionTitle", "SectionTitle");
 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
-            var sections = db.Sections.Where(s => s.CourseID.Equals(student.CourseID));
-            ViewBag.Sections = new SelectList(sections, "SectionTitle", "SectionTitle");
+            //var sections = db.Sections.Where(s => s.CourseID.Equals(student.CourseID));
+            //ViewBag.Sections = new SelectList(sections, "SectionTitle", "SectionTitle");
 
             if (student == null)
             {
