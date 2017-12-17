@@ -70,6 +70,7 @@ namespace CloudSchool.Controllers
         // GET: Teachers/Create
         public ActionResult AddTeacher()
         {
+            
             return View();
         }
 

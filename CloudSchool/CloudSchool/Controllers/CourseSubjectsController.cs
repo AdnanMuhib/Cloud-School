@@ -42,6 +42,10 @@ namespace CloudSchool.Controllers
         // GET: CourseSubjects/Create
         public ActionResult Create()
         {
+            string id = User.Identity.GetUserId();
+            ViewBag.Teachers = new SelectList(db.Teachers.Where(t => t.SchoolID.Equals(id)).ToList(), "RegistrationNumber", "RegistrationNumber");
+            ViewBag.Courses = new SelectList(db.Classes.Where(d => d.SchoolID.Equals(id)).ToList(), "Name", "Name");
+            //ViewBag.courses=new SelectList(db.Classes.Where(t=>t.))
             return View();
         }
 
@@ -50,8 +54,14 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SubjectTitle,TotalMarks,ObtainedMarks")] CourseSubject courseSubject)
+        public ActionResult Create([Bind(Include = "ID,SubjectTitle,TotalMarks,ObtainedMarks,TeacherRegistrationNumber,CourseName")] CourseSubject courseSubject)
         {
+            string id = User.Identity.GetUserId();
+            var teacher = db.Teachers.Single(t=>t.RegistrationNumber.Equals(courseSubject.TeacherRegistrationNumber));
+            var course = db.Classes.Single(t => t.Name.Equals(courseSubject.CourseName));
+            courseSubject.CourseID = course.ID.ToString();
+            courseSubject.TeacherID = teacher.ID.ToString();
+            courseSubject.SchoolID = id;
             if (ModelState.IsValid)
             {
                 courseSubject.SchoolID = User.Identity.GetUserId();
@@ -66,6 +76,9 @@ namespace CloudSchool.Controllers
         // GET: CourseSubjects/Edit/5
         public ActionResult Edit(int? id)
         {
+            string schoolid = User.Identity.GetUserId();
+            ViewBag.Teachers = new SelectList(db.Teachers.Where(t => t.SchoolID.Equals(schoolid)).ToList(), "RegistrationNumber", "RegistrationNumber");
+            ViewBag.Courses = new SelectList(db.Classes.Where(d => d.SchoolID.Equals(schoolid)).ToList(), "Name", "Name");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -83,8 +96,15 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,SubjectTitle,TotalMarks,ObtainedMarks")] CourseSubject courseSubject)
+        public ActionResult Edit([Bind(Include = "ID,SubjectTitle,TotalMarks,ObtainedMarks,TeacherRegistrationNumber,CourseName")] CourseSubject courseSubject)
         {
+            string id = User.Identity.GetUserId();
+            var teacher = db.Teachers.Single(t => t.RegistrationNumber.Equals(courseSubject.TeacherRegistrationNumber));
+            var course = db.Classes.Single(t => t.Name.Equals(courseSubject.CourseName));
+            courseSubject.CourseID = course.ID.ToString();
+            courseSubject.TeacherID = teacher.ID.ToString();
+            courseSubject.SchoolID = id;
+
             if (ModelState.IsValid)
             {
                 db.Entry(courseSubject).State = EntityState.Modified;

@@ -18,5 +18,7 @@ namespace CloudSchool.Models
         public List<CourseSubject> subjects { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string SchoolID { get; set; }
+        [DisplayName("Registration Number")]
+        public String RegistrationNumber { get; set; }
     }
 }
