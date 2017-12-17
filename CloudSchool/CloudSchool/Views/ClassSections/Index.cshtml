@@ -18,18 +18,6 @@
         <th>
             @Html.DisplayNameFor(model => model.ClassName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartingRegistrationNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndingRegistrationNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SchoolID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseID)
-        </th>
         <th></th>
     </tr>
 
@@ -41,18 +29,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.ClassName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartingRegistrationNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndingRegistrationNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SchoolID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseID)
-        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |

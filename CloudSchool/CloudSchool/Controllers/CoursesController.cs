@@ -20,6 +20,7 @@ namespace CloudSchool.Controllers
         {
             string id = User.Identity.GetUserId();
             var courses = db.Classes.Where(d => d.SchoolID.Equals(id));
+            var lstCourses = courses.ToList();
             return View(courses.ToList());
         }
 
@@ -53,6 +54,8 @@ namespace CloudSchool.Controllers
         {
             if (ModelState.IsValid)
             {
+                string id = User.Identity.GetUserId();
+                classForStudents.SchoolID = id;
                 db.Classes.Add(classForStudents);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -85,6 +88,8 @@ namespace CloudSchool.Controllers
         {
             if (ModelState.IsValid)
             {
+                string id = User.Identity.GetUserId();
+                classForStudents.SchoolID = id;
                 db.Entry(classForStudents).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

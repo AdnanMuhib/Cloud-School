@@ -224,6 +224,7 @@ namespace CloudSchool.Controllers
                     await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     return RedirectToAction("Index", "Dashboards");
                 }
+
                 AddErrors(result);
             }
 
@@ -271,6 +272,8 @@ namespace CloudSchool.Controllers
                     await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     return RedirectToAction("Index", "Dashboards");
                 }
+                ViewBag.Institutes = new SelectList(db.Institutes.ToList(), "Name", "Name");
+                ViewBag.SchoolName = new SelectList(db.Institutes.ToList(), "Name", "Name");
                 AddErrors(result);
             }
 
@@ -318,6 +321,8 @@ namespace CloudSchool.Controllers
                     await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     return RedirectToAction("Index", "Dashboards");
                 }
+                ViewBag.Institutes = new SelectList(db.Institutes.ToList(), "Name", "Name");
+                ViewBag.SchoolName = new SelectList(db.Institutes.ToList(), "Name", "Name");
                 AddErrors(result);
             }
 

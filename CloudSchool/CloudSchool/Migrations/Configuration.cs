@@ -10,7 +10,6 @@ namespace CloudSchool.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "CloudSchool.Models.CloudSchoolDbContext";
         }
 
         protected override void Seed(CloudSchool.Models.CloudSchoolDbContext context)

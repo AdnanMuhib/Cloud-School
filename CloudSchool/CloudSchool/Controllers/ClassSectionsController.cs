@@ -41,6 +41,8 @@ namespace CloudSchool.Controllers
         // GET: ClassSections/Create
         public ActionResult Create()
         {
+            string id = User.Identity.GetUserId();
+            ViewBag.Courses = new SelectList(db.Classes.Where(d => d.SchoolID.Equals(id)).ToList(), "Name", "Name");
             return View();
         }
 
@@ -53,6 +55,10 @@ namespace CloudSchool.Controllers
         {
             if (ModelState.IsValid)
             {
+                string id = User.Identity.GetUserId();
+                ClassForStudents classname = db.Classes.Single(d => d.Name.Equals(classSection.ClassName));
+                classSection.CourseID = classname.ID;
+                classSection.SchoolID = id;
                 db.Sections.Add(classSection);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -64,6 +70,8 @@ namespace CloudSchool.Controllers
         // GET: ClassSections/Edit/5
         public ActionResult Edit(int? id)
         {
+            string idd = User.Identity.GetUserId();
+            ViewBag.Courses = new SelectList(db.Classes.Where(d => d.SchoolID.Equals(idd)).ToList(), "Name", "Name");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

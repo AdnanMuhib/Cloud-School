@@ -10,6 +10,8 @@ using CloudSchool.Models;
 using System.IO;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using LumenWorks.Framework.IO.Csv;
+using System.Globalization;
 
 namespace CloudSchool.Controllers
 {
@@ -23,6 +25,84 @@ namespace CloudSchool.Controllers
             string id = User.Identity.GetUserId();
             var students = db.Students.Where(d => d.SchoolID.Equals(id));
             return View(students.ToList());
+        }
+        // GET: View to upload students CSV File
+        public ActionResult Upload()
+        {
+            return View();
+        }
+        // POST:
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadCSV(HttpPostedFileBase upload)
+        {
+            if (ModelState.IsValid)
+            {
+                var institute = db.Institutes.Single(d => d.AccountID.Equals(User.Identity.GetUserId()));
+                string instituteName = institute.Name;
+                if (upload != null && upload.ContentLength > 0)
+                {
+
+                    if (upload.FileName.EndsWith(".csv"))
+                    {
+                        Stream stream = upload.InputStream;
+                        DataTable csvTable = new DataTable();
+                        using (CsvReader csvReader =
+                            new CsvReader(new StreamReader(stream), true))
+                        {
+                            csvTable.Load(csvReader);
+                        }
+                        // This Code gets the columns Names and the row data from csv for further processing
+                        // Columns Names
+                        List<string> lstStudents = new List<string>();
+                        foreach (DataColumn col in csvTable.Columns)
+                        {
+                            //Console.WriteLine(col.ColumnName);
+                            lstStudents.Add(col.ColumnName);
+                        }
+                        // rows Data
+                        foreach (DataRow row in csvTable.Rows)
+                        {
+                            // Creating Student Object from Uploaded CSV File
+                            Student student = new Student
+                            {
+                                Name = row["UserName"].ToString(),
+                                FatherName = row["FatherName"].ToString(),
+                                Address = row["Address"].ToString(),
+                                CNIC = row["CNIC"].ToString(),
+                                EmailID = row["EmailId"].ToString(),
+                                EmailIDParents = row["ParentsEmail"].ToString(),
+                                Gender = row["Gender"].ToString(),
+                                InstituteName = instituteName,
+                                SchoolID = User.Identity.GetUserId(),
+                                MobileNumber = row["MobileNumber"].ToString(),
+                                RegistrationNumber = row["RegNumber"].ToString(),
+                                LastPassedExam = row["LastPassedExam"].ToString(),
+                                LastExamTotalMarks = Int32.Parse(row["LastExamTotalMarks"].ToString()),
+                                LastExamObtainedMarks = row["LastExamObtainedMarks"].ToString(),
+                                ProfilePicture = row["ProfilePicture"].ToString()
+                            };
+
+                            //var DateOfBirth = DateTime.Parse(row["DateOfBirth"].ToString());
+                            //foreach (DataColumn col in csvTable.Columns)
+                            //{
+                            //    var r = row[col.ColumnName];
+                            //}
+                        }
+                        return View(csvTable);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("File", "This file format is not supported");
+                        return View();
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("File", "Please Upload Your file");
+                }
+            }
+            return View();
         }
 
         // GET: Students/Details/5
@@ -44,27 +124,66 @@ namespace CloudSchool.Controllers
         [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Create()
         {
-            ViewBag.Courses = new SelectList(db.Classes.ToList(), "Name", "Name");
+            string id = User.Identity.GetUserId();
+            ViewBag.Courses = new SelectList(db.Classes.Where(d => d.SchoolID.Equals(id)).ToList(), "Name", "Name");
+            ViewBag.Sections = new SelectList(db.Sections.Where(d => d.SchoolID.Equals(id)).ToList(), "SectionTitle", "SectionTitle");
             return View();
         }
 
-        // POST: Students/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "SchoolAdmin")]
-        //public ActionResult Create([Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Students.Add(student);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+        public async System.Threading.Tasks.Task<ActionResult> Create([Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student, string EnrolledClassName, HttpPostedFileBase imgFile)
+        {
+            ViewBag.Sections = new SelectList(db.Sections, "SectionTitle", "SectionTitle");
+            var classes = db.Classes.Single(c => c.Name.Equals(student.EnrolledClassName));
+            student.CourseID = classes.ID;
+            string fileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+            string extension = Path.GetExtension(imgFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            student.ProfilePicture = "/Images/Accounts/" + fileName;
 
-        //    return View(student);
-        //}
+            fileName = Path.Combine(Server.MapPath("~/Images/Accounts/"), fileName);
+
+
+            student.SchoolID = User.Identity.GetUserId();
+            student.InstituteName = User.Identity.GetUserName();
+
+            if (ModelState.IsValid)
+            {
+                // creating new Account in the Identity Manager
+                ApplicationDbContext context = new ApplicationDbContext();
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+                var user = new ApplicationUser();
+                user.UserName = student.Name;
+                user.Email = student.EmailID;
+                user.ProfilePicture = student.ProfilePicture;
+                string password = student.Password;
+
+                var chkusr = UserManager.Create(user, password);
+
+
+                if (chkusr.Succeeded)
+                {
+                    imgFile.SaveAs(fileName);
+                    db.Students.Add(student);
+                    db.SaveChanges();
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.AddToRoleAsync(user.Id, "Student");
+                    return RedirectToAction("Index", "Students");
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return View(student);
+        }
 
         // GET: Students/Edit/5
         [Authorize(Roles = "SchoolAdmin")]
@@ -135,60 +254,7 @@ namespace CloudSchool.Controllers
         }
 
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async System.Threading.Tasks.Task<ActionResult> Create([ Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student, HttpPostedFileBase imgFile)
-        {
-            ViewBag.Sections = new SelectList(db.Sections, "SectionTitle", "SectionTitle");
-            var classes = db.Classes.Single(c => c.Name.Equals(student.EnrolledClassName));
-            student.CourseID = classes.ID;
-            string fileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
-            string extension = Path.GetExtension(imgFile.FileName);
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-            student.ProfilePicture = "/Images/Accounts/" + fileName;
 
-            fileName = Path.Combine(Server.MapPath("~/Images/Accounts/"), fileName);
-
-
-            student.SchoolID = User.Identity.GetUserId();
-            student.InstituteName = User.Identity.GetUserName();
-
-            if (ModelState.IsValid)
-            {
-                // creating new Account in the Identity Manager
-                ApplicationDbContext context = new ApplicationDbContext();
-                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
-                var user = new ApplicationUser();
-                user.UserName = student.Name;
-                user.Email = student.EmailID;
-                user.ProfilePicture = student.ProfilePicture;
-                string password = student.Password;
-
-                var chkusr = UserManager.Create(user, password);
-
-
-                if (chkusr.Succeeded)
-                {
-                    imgFile.SaveAs(fileName);
-                    db.Students.Add(student);
-                    db.SaveChanges();
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    await UserManager.AddToRoleAsync(user.Id, "Teacher");
-                    return RedirectToAction("Index", "Teachers");
-                }
-
-                return RedirectToAction("Index");
-            }
-
-            return View(student);
-        }
 
         protected override void Dispose(bool disposing)
         {

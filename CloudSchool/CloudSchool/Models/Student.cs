@@ -20,7 +20,7 @@ namespace CloudSchool.Models
         [DisplayName("Registration Number")]
         public String RegistrationNumber { get; set; }
         [DisplayName("Enrolled Class Name")]
-        public IEnumerable<ClassForStudents> EnrolledClassName { get; set; }
+        public string EnrolledClassName { get; set; }
         [DisplayName("Enrolled Section Name")]
         public string EnrolledSectionName { get; set; }
         [DisplayName("Parents Email ID")]

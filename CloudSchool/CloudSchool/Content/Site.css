@@ -335,7 +335,7 @@ textarea.form-control {
 #MyButton a{
     text-decoration:none;
     color:white;
-    font-size:large;
+    font-size:small;
 }
 .stylishDropDown select{
    width: 100%;
