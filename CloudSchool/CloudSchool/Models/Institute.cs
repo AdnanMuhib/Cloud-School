@@ -59,5 +59,7 @@ namespace CloudSchool.Models
         public System.Data.Entity.DbSet<CloudSchool.Models.Notification> Notifications { get; set; }
 
         public System.Data.Entity.DbSet<CloudSchool.Models.Dashboard> Dashboards { get; set; }
+
+        public System.Data.Entity.DbSet<CloudSchool.Models.MailRecipient> MailRecipients { get; set; }
     }
 }

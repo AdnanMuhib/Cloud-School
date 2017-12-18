@@ -9,7 +9,7 @@ namespace CloudSchool.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(CloudSchool.Models.CloudSchoolDbContext context)
