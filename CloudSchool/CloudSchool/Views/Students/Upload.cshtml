@@ -11,7 +11,7 @@
 
 <h2>Upload File</h2>
 
-@using (Html.BeginForm("UploadCSV", "Students", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Upload", "Students", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()

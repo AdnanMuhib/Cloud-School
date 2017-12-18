@@ -108,6 +108,11 @@ namespace CloudSchool.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,SectionTitle,ClassName,StartingRegistrationNumber,EndingRegistrationNumber,SchoolID,CourseID")] ClassSection classSection)
         {
+            string id = User.Identity.GetUserId();
+            ClassForStudents classname = db.Classes.Single(d => d.Name.Equals(classSection.ClassName));
+            classSection.CourseID = classname.ID;
+            classSection.SchoolID = id;
+
             if (ModelState.IsValid)
             {
                 db.Entry(classSection).State = EntityState.Modified;

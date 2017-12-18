@@ -19,6 +19,7 @@ namespace CloudSchool.Controllers
     public class StudentsController : Controller
     {
         private CloudSchoolDbContext db = new CloudSchoolDbContext();
+        ApplicationDbContext context = new ApplicationDbContext();
 
         // GET: Students
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -64,22 +65,27 @@ namespace CloudSchool.Controllers
         // GET: View to upload students CSV File
         public ActionResult Upload()
         {
+
             return View();
         }
         // POST:
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UploadCSV(HttpPostedFileBase upload)
+        public async System.Threading.Tasks.Task<ActionResult> Upload(HttpPostedFileBase upload)
         {
             if (ModelState.IsValid)
             {
-                var institute = db.Institutes.Single(d => d.AccountID.Equals(User.Identity.GetUserId()));
+                var userId = User.Identity.GetUserId();
+                var institute = db.Institutes.Single(d => d.AccountID.Equals(userId));
                 string instituteName = institute.Name;
                 if (upload != null && upload.ContentLength > 0)
                 {
 
                     if (upload.FileName.EndsWith(".csv"))
                     {
+                        var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                        var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
                         Stream stream = upload.InputStream;
                         DataTable csvTable = new DataTable();
                         using (CsvReader csvReader =
@@ -115,16 +121,40 @@ namespace CloudSchool.Controllers
                                 LastPassedExam = row["LastPassedExam"].ToString(),
                                 LastExamTotalMarks = Int32.Parse(row["LastExamTotalMarks"].ToString()),
                                 LastExamObtainedMarks = row["LastExamObtainedMarks"].ToString(),
-                                ProfilePicture = row["ProfilePicture"].ToString()
+                                ProfilePicture = row["ProfilePicture"].ToString(),
+                                Password = row["Password"].ToString()
                             };
 
-                            //var DateOfBirth = DateTime.Parse(row["DateOfBirth"].ToString());
-                            //foreach (DataColumn col in csvTable.Columns)
-                            //{
-                            //    var r = row[col.ColumnName];
-                            //}
+                            DateTime DateOfBirth = DateTime.Parse(row["DateOfBirth"].ToString());
+                            student.DateOfBirth = DateOfBirth;
+
+
+                            var user = new ApplicationUser();
+                            user.UserName = student.CNIC;
+                            user.Email = student.EmailID;
+                            user.ProfilePicture = student.ProfilePicture;
+                            string password = student.Password;
+
+                            var chkusr = UserManager.Create(user, password);
+
+
+                            if (chkusr.Succeeded)
+                            {
+                                db.Students.Add(student);
+                                db.SaveChanges();
+                                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                                // Send an email with this link
+                                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                                await UserManager.AddToRoleAsync(user.Id, "Student");
+
+                            }
+
+                            //return RedirectToAction("Index");
                         }
-                        return View(csvTable);
+                        return RedirectToAction("Index", "Students");
+                       // return View(csvTable);
                     }
                     else
                     {
@@ -187,12 +217,11 @@ namespace CloudSchool.Controllers
             if (ModelState.IsValid)
             {
                 // creating new Account in the Identity Manager
-                ApplicationDbContext context = new ApplicationDbContext();
+
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
                 var user = new ApplicationUser();
-                user.UserName = student.Name;
+                user.UserName = student.RegistrationNumber;
                 user.Email = student.EmailID;
                 user.ProfilePicture = student.ProfilePicture;
                 string password = student.Password;
@@ -224,14 +253,17 @@ namespace CloudSchool.Controllers
         [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Edit(int? id)
         {
+            string idd = User.Identity.GetUserId();
+            ViewBag.Courses = new SelectList(db.Classes.Where(d => d.SchoolID.Equals(idd)).ToList(), "Name", "Name");
+            ViewBag.Sections = new SelectList(db.Sections.Where(d => d.SchoolID.Equals(idd)).ToList(), "SectionTitle", "SectionTitle");
 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
-            var sections = db.Sections.Where(s => s.CourseID.Equals(student.CourseID));
-            ViewBag.Sections = new SelectList(sections, "SectionTitle", "SectionTitle");
+            //var sections = db.Sections.Where(s => s.CourseID.Equals(student.CourseID));
+            //ViewBag.Sections = new SelectList(sections, "SectionTitle", "SectionTitle");
 
             if (student == null)
             {
