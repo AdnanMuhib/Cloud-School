@@ -15,8 +15,27 @@ namespace CloudSchool.Controllers
         private CloudSchoolDbContext db = new CloudSchoolDbContext();
 
         // GET: Feedbacks
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            
+            var feedback = from s in db.Feedbacks
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                feedback = feedback.Where(s => s.Subject.Contains(searchString)
+                                       || s.Subject.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    feedback = feedback.OrderByDescending(s => s.Subject);
+                    break;
+                
+                default:
+                    feedback = feedback.OrderBy(s => s.Subject);
+                    break;
+            }
             return View(db.Feedbacks.ToList());
         }
 

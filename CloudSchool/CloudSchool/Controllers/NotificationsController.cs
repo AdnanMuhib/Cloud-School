@@ -15,9 +15,26 @@ namespace CloudSchool.Controllers
         private CloudSchoolDbContext db = new CloudSchoolDbContext();
 
         // GET: Notifications
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            return View(db.Notifications.ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            var notification = from n in db.Notifications select n;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                notification = notification.Where(s => s.Subject.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    notification = notification.OrderByDescending(s => s.Subject);
+                    break;
+                
+                default:
+                    notification = notification.OrderBy(s => s.Subject);
+                    break;
+            }
+            return View(notification.ToList());
         }
 
         // GET: Notifications/Details/5

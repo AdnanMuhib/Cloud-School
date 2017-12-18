@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CloudSchool.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CloudSchool.Controllers
 {
@@ -14,9 +15,11 @@ namespace CloudSchool.Controllers
     {
         private CloudSchoolDbContext db = new CloudSchoolDbContext();
 
+        
         // GET: Results
         public ActionResult Index()
         {
+            
             return View(db.Results.ToList());
         }
 
@@ -38,6 +41,9 @@ namespace CloudSchool.Controllers
         // GET: Results/Create
         public ActionResult Create()
         {
+            string username = User.Identity.GetUserName();
+            
+            
             return View();
         }
 
@@ -46,8 +52,9 @@ namespace CloudSchool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Percentage,RegistrationNumber")] Result result)
+        public ActionResult Create([Bind(Include = "ID,Percentage,RegistrationNumber,SubjectName,StudentRegistration")] Result result)
         {
+
             if (ModelState.IsValid)
             {
                 db.Results.Add(result);

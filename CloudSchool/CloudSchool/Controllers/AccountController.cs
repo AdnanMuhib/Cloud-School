@@ -267,6 +267,7 @@ namespace CloudSchool.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     // teacher.SchoolID = user.Id;
+                    teacher.UserID = user.Id;
                     db.Teachers.Add(teacher);
                     db.SaveChanges();
                     await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
@@ -277,7 +278,7 @@ namespace CloudSchool.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
+            // If we got this far, something failed, redisplay RegistrationNumber
             return View(model);
         }
         // POST: /Account/Register
@@ -295,7 +296,7 @@ namespace CloudSchool.Controllers
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
 
                 model.ProfilePicture = "/Images/Accounts/" + fileName;
-                model.UserRoles = "Teacher";
+                model.UserRoles = "Student";
 
                 student.ProfilePicture = model.ProfilePicture;
                 student.EmailID = model.Email;
@@ -316,6 +317,7 @@ namespace CloudSchool.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     // teacher.SchoolID = user.Id;
+                    student.UserID = user.Id;
                     db.Students.Add(student);
                     db.SaveChanges();
                     await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
