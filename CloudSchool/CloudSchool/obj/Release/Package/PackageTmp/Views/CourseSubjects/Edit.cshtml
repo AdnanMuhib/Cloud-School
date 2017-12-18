@@ -1,0 +1,75 @@
+﻿@model CloudSchool.Models.CourseSubject
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>CourseSubject</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubjectTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SubjectTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SubjectTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalMarks, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalMarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalMarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ObtainedMarks, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ObtainedMarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ObtainedMarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Select Teacher", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <div class="stylishDropDown">@Html.DropDownList("TeacherRegistrationNumber", (SelectList)ViewBag.Teachers, "Choose A Teacher")</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Select Course", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <div class="stylishDropDown">@Html.DropDownList("CourseName", (SelectList)ViewBag.Courses, "Choose A Course")</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success"  id="MyButton"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <span class="btn btn-warning" id="MyButton"> @Html.ActionLink("Back to List", "Index") </span>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

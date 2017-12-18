@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CloudSchool.Models.CourseSubject>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Create New", "Create") </span>
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table" border="5">
+    <tr>
+        <th>
+           @Html.ActionLink("SubjectTitle", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ObtainedMarks)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubjectTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ObtainedMarks)
+        </td>
+        <td>
+            <span class="btn btn-warning" id="MyButton"> @Html.ActionLink("Edit", "Edit", new { id = item.ID }) </span> |
+            <span class="btn btn-success" id="MyButton">@Html.ActionLink("Details", "Details", new { id = item.ID }) </span> |
+            <span class="btn btn-danger" id="MyButton">@Html.ActionLink("Delete", "Delete", new { id = item.ID })
+</td>
+    </tr>
+}
+
+</table>

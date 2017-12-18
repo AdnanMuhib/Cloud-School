@@ -1,0 +1,73 @@
+﻿@model CloudSchool.Models.ClassSection
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ClassSection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SectionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingRegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingRegistrationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndingRegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndingRegistrationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseID)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" id="MyButton" /> |
+            <span class="btn btn-warning" id="MyButton">@Html.ActionLink("Back to List", "Index") </span>
+        </div>
+    }
+</div>

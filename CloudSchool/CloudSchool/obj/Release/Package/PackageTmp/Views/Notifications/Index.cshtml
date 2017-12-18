@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CloudSchool.Models.Notification>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+
+}
+
+<h2>Index</h2>
+
+<p>
+    <span class="btn btn-success" id="MyButton">@Html.ActionLink("Create New", "Create") </span>
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table" border="5">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailIDToNotify)
+        </th>
+        <th>
+           @Html.ActionLink("Subject", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContentToNotify)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailIDToNotify)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContentToNotify)
+        </td>
+        <td>
+            <span class="btn btn-warning" id="MyButton"> @Html.ActionLink("Edit", "Edit", new { id = item.ID }) </span> |
+            <span class="btn btn-success" id="MyButton">@Html.ActionLink("Details", "Details", new { id = item.ID }) </span> |
+            <span class="btn btn-danger" id="MyButton">@Html.ActionLink("Delete", "Delete", new { id = item.ID }) </span>
+        </td>
+    </tr>
+}
+
+</table>

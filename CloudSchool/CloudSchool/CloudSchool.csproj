@@ -196,29 +196,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712171208377_Another.cs" />
-    <Compile Include="Migrations\201712171208377_Another.Designer.cs">
-      <DependentUpon>201712171208377_Another.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712171645486_Initialcreate1.cs" />
-    <Compile Include="Migrations\201712171645486_Initialcreate1.Designer.cs">
-      <DependentUpon>201712171645486_Initialcreate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712171650338_Initialcreate2.cs" />
-    <Compile Include="Migrations\201712171650338_Initialcreate2.Designer.cs">
-      <DependentUpon>201712171650338_Initialcreate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712171811293_Initialcreate3.cs" />
-    <Compile Include="Migrations\201712171811293_Initialcreate3.Designer.cs">
-      <DependentUpon>201712171811293_Initialcreate3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712172016218_Initialcreate4.cs" />
-    <Compile Include="Migrations\201712172016218_Initialcreate4.Designer.cs">
-      <DependentUpon>201712172016218_Initialcreate4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712180057047_Initial-Create.cs" />
-    <Compile Include="Migrations\201712180057047_Initial-Create.Designer.cs">
-      <DependentUpon>201712180057047_Initial-Create.cs</DependentUpon>
+    <Compile Include="Migrations\201712180601426_initial.cs" />
+    <Compile Include="Migrations\201712180601426_initial.Designer.cs">
+      <DependentUpon>201712180601426_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -270,6 +250,8 @@
     <Content Include="Images\window_domain.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\cloudschool - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\cloudschool - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -390,23 +372,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712171208377_Another.resx">
-      <DependentUpon>201712171208377_Another.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712171645486_Initialcreate1.resx">
-      <DependentUpon>201712171645486_Initialcreate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712171650338_Initialcreate2.resx">
-      <DependentUpon>201712171650338_Initialcreate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712171811293_Initialcreate3.resx">
-      <DependentUpon>201712171811293_Initialcreate3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712172016218_Initialcreate4.resx">
-      <DependentUpon>201712172016218_Initialcreate4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712180057047_Initial-Create.resx">
-      <DependentUpon>201712180057047_Initial-Create.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712180601426_initial.resx">
+      <DependentUpon>201712180601426_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,63 @@
+﻿@model CloudSchool.Models.CourseSubject
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CourseSubject</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubjectTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubjectTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalMarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalMarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ObtainedMarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ObtainedMarks)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRegistrationNumber)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-success" id="MyButton" /> |
+            <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Back to List", "Index")</span>
+        </div>
+    }
+</div>

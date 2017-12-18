@@ -1,0 +1,399 @@
+﻿@model CloudSchool.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<h4>Create a new account.</h4>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#Institute">Institute</a></li>
+    <li><a data-toggle="tab" href="#menu1">Teacher</a></li>
+    <li><a data-toggle="tab" href="#menu2">Student</a></li>
+</ul>
+
+<div class="tab-content">
+    <!-- This Tab contains the form to register a new Institute-->
+    <div id="Institute" class="tab-pane fade in active" style="padding:5%;">
+        <div class="row">
+            <hr />
+            @using (Html.BeginForm("RegisterInstitute", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+            {
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-md-4 control-label"> Administrator Username</label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="PhoneNumber">Mobile Number</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="PhoneNumber" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="CNIC">CNIC</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="CNIC" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="Address">Address</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="Address" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="TypeOfInstitute">Institute Type</label>
+                    </div>
+                    <div class="col-md-8 stylishDropDown">
+                        <select name="TypeOfInstitute">
+                            <option value="School">School</option>
+                            <option value="College">College</option>
+                            <option value="Academy">Academy</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="Name">Institute Name</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Logo", new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        <input type="file" name="imgFile" class="input-files" accept=".png, .jpg, .jpeg, .gif, .tif" required />
+                    </div>
+                </div>
+                <input type="hidden" name="UserRoles" value="Teacher" />
+                <div class="form-group">
+                    <div class="col-md-offset-8 col-md-4">
+                        <input type="submit" class="btn btn-lg btn-primary" value="Register" id="MyButton" />
+                    </div>
+                </div>
+            </div>
+
+            }
+        </div>
+    </div>
+    <!-- This Tab contains the form to register a new Teacher-->
+    <div id="menu1" class="tab-pane fade" style="padding:5%;">
+        <div class="row">
+            <hr />
+            @using (Html.BeginForm("RegisterTeacher", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+            {
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="FatherName">Father Name</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="FatherName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="CNIC">CNIC</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="CNIC" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="DateOfBirth">Date of Birth</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="date" name="DateOfBirth" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="Address">Address</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="Address" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="MobileNumber">Mobile Number</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="MobileNumber" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="Gender">Gender</label>
+                    </div>
+                    <div class="col-md-8 stylishDropDown">
+                        <select name="Gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="control-label">Institute Name</label>
+                    </div>
+                    <div class="col-md-8 stylishDropDown">
+                        <div class="stylishDropDown"> @Html.DropDownList("InstituteName", (SelectList)ViewBag.Institutes, "Select Institute Name")</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="Qualification">Qualification</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="Qualification" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">
+                        <label for="Experience">Teaching Experience</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" name="Experience" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Profile Picture", new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        <input type="file" name="imgFile" class="input-files" accept=".png, .jpg, .jpeg, .gif, .tif" required />
+                    </div>
+                </div>
+                <input type="hidden" name="UserRoles" value="Teacher" />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-lg btn-primary" value="Register" id="MyButton" />
+                    </div>
+                </div>
+            </div>
+            @*<div class="form-group">
+                    @Html.Label("Institute Name", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        <div class="stylishDropDown">@Html.DropDownList("", (SelectList)ViewBag.SchoolName, "Select Your Role")</div>
+                    </div>
+                </div>*@
+
+            }
+        </div>
+    </div>
+    <!-- This Tab contains the form to register a new Student-->
+    <div id="menu2" class="tab-pane fade" style="padding:5%;">
+        <div class="row">
+            <hr />
+            @using (Html.BeginForm("RegisterStudent", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="FatherName">Father Name</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="FatherName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="CNIC">CNIC</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="CNIC" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="DateOfBirth">Date of Birth</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" name="DateOfBirth" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="Address">Address</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="Address" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="MobileNumber">Mobile Number</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="MobileNumber" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="Gender">Gender</label>
+                        </div>
+                        <div class="col-md-8 stylishDropDown">
+                            <select name="Gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="control-label">Institute Name</label>
+                        </div>
+                        <div class="col-md-8 stylishDropDown">
+                            <div class="stylishDropDown"> @Html.DropDownList("InstituteName", (SelectList)ViewBag.Institutes, "Select Institute Name")</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="LastPassedExam">Last Passed Exam</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="LastPassedExam" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="LastExamTotalMarks">Last Exam Total Marks</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="LastExamTotalMarks" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="LastExamObtainedMarks">Last Exam Obtained Marks</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="LastExamObtainedMarks" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-md-4">
+                            <label for="EmailIDParents">Parents Email ID</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="email" name="EmailIDParents" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Profile Picture", new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            <input type="file" name="imgFile" class="input-files" accept=".png, .jpg, .jpeg, .gif, .tif" required />
+                        </div>
+                    </div>
+                    <input type="hidden" name="UserRoles" value="Teacher" />
+                    <div class="form-group">
+                        <div class="col-md-offset-8 col-md-4">
+                            <input type="submit" class="btn btn-lg btn-primary" value="Register" id="MyButton" />
+                        </div>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        @Html.Label("Institute Name", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            <div class="stylishDropDown">@Html.DropDownList("", (SelectList)ViewBag.SchoolName, "Select Your Role")</div>
+                        </div>
+                    </div>*@
+
+            }
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

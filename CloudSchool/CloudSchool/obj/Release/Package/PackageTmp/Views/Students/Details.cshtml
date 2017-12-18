@@ -1,0 +1,166 @@
+﻿@model CloudSchool.Models.Student
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+}
+
+<h2>Details</h2>
+<div class="row">
+    <img class="img img-thumbnail img-responsive" src="@Html.DisplayFor(model => model.ProfilePicture)" style="width:100px;height:100px;"/>
+</div>
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FatherName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FatherName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CNIC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CNIC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstituteName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InstituteName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MobileNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MobileNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastPassedExam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastPassedExam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastExamTotalMarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastExamTotalMarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastExamObtainedMarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastExamObtainedMarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrolledClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrolledClassName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrolledSectionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrolledSectionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailIDParents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailIDParents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfilePicture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfilePicture)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    <span class="btn btn-warning" id="MyButton">@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) </span> |
+    <span class="btn btn-warning" id="MyButton">@Html.ActionLink("Back to List", "Index")</span>
+</p>

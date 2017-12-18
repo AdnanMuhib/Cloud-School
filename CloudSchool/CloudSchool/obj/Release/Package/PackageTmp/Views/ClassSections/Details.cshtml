@@ -1,0 +1,67 @@
+﻿@model CloudSchool.Models.ClassSection
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ClassSection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SectionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassName)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.StartingRegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingRegistrationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndingRegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndingRegistrationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseID)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    <span class="btn btn-warning" id="MyButton">@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) </span> |
+    <span class="btn btn-success" id="MyButton">@Html.ActionLink("Back to List", "Index")</span>
+</p>

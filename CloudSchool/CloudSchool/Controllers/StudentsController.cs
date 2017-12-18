@@ -50,7 +50,7 @@ namespace CloudSchool.Controllers
                 case "name_desc":
                     students = students.OrderByDescending(s => s.Name);
                     break;
-                
+
                 default:
                     students = students.OrderBy(s => s.Name);
                     break;
@@ -60,7 +60,7 @@ namespace CloudSchool.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(students.ToPagedList(pageNumber, pageSize));
-            
+
         }
         // GET: View to upload students CSV File
         public ActionResult Upload()
@@ -280,15 +280,21 @@ namespace CloudSchool.Controllers
         [Authorize(Roles = "SchoolAdmin")]
         public ActionResult Edit([Bind(Include = "ID,LastPassedExam,LastExamTotalMarks,LastExamObtainedMarks,RegistrationNumber,EnrolledClassName,EnrolledSectionName,EmailIDParents,ProfilePicture,Name,FatherName,DateOfBirth,EmailID,CNIC,Password,InstituteName,Address,MobileNumber,Gender")] Student student)
         {
-            var sections = db.Sections.Single(c => c.SectionTitle.Equals(student.EnrolledSectionName));
-            student.SectionID = sections.ID;
-
+            var sections = db.Sections.Where(c => c.SectionTitle.Equals(student.EnrolledSectionName)).ToList();
+            foreach (var sec in sections) {
+                student.SectionID = sec.ID;
+            }
+            var schoolID = User.Identity.GetUserId();
+            student.SchoolID = schoolID;
             if (ModelState.IsValid)
             {
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            string idd = User.Identity.GetUserId();
+            ViewBag.Courses = new SelectList(db.Classes.Where(d => d.SchoolID.Equals(idd)).ToList(), "Name", "Name");
+            ViewBag.Sections = new SelectList(db.Sections.Where(d => d.SchoolID.Equals(idd)).ToList(), "SectionTitle", "SectionTitle");
             return View(student);
         }
 

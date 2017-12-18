@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CloudSchool.Models.Feedback>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+}
+
+<h2>Feedback</h2>
+
+<p style="text-align:right">
+    <span class="btn btn-primary" id="MyButton">@Html.ActionLink("New Feedback", "Create")</span>
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table" border="5">
+    <tr>
+        <th>
+            @Html.ActionLink("Subjects", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            <span class="btn btn-warning" id="MyButton">@Html.ActionLink("Edit", "Edit", new { id = item.ID }) </span> |
+            <span class="btn btn-success" id="MyButton">@Html.ActionLink("Details", "Details", new { id = item.ID }) </span> |
+            <span class="btn btn-danger" id="MyButton">@Html.ActionLink("Delete", "Delete", new { id=item.ID }) </span>
+        </td>
+    </tr>
+}
+
+</table>

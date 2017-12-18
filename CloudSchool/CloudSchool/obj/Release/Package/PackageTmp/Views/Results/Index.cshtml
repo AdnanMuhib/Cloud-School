@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CloudSchool.Models.Result>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <span class="btn btn-success" id="MyButton">@Html.ActionLink("Create New", "Create")</span>
+</p>
+<table class="table" border="5">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Percentage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Percentage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistrationNumber)
+        </td>
+        <td>
+            <span class="btn btn-warning" id="MyButton">  @Html.ActionLink("Edit", "Edit", new { id = item.ID }) </span> |
+            <span class="btn btn-danger" id="MyButton"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })</span> |
+            <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Details", "Details", new { id = item.ID })</span>
+        </td>
+    </tr>
+}
+
+</table>

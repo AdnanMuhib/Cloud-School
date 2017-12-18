@@ -1,0 +1,140 @@
+﻿@using Microsoft.AspNet.Identity;
+@using CloudSchool.Models;
+@using System.Web.Mvc;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Microsoft.AspNet.Identity.Owin;
+@using Microsoft.Owin.Security;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Cloud School</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        .navbar {
+            background-color:black;
+            color:white;
+        }
+        .body-content {
+        padding-left:0px;
+        }
+        .dropbtn {
+        background-color:black;
+        }
+        .dropdown-content{
+            background-color:black;
+        }
+    </style>
+    <link type="text/css" href="~/Content/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span style="color:white;font-size:large">
+                    <p class="site-title navbar-brand"><a href="@Url.Action("Index", "Home")"><img src="~/Images/CSE dept logo.png" alt="Cloud School" class="img-circle img-responsive img-rounded img-thumbnail" width="50px"/></a></p>
+                    @*@Html.ActionLink("Cloud School", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                </span>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="row" style="margin-top:20px;">
+            <div class="col-sm-3" style="margin-left:0px;">
+                <div style="background-color:black;color:white;height:700px;position:absolute;width:100%;">
+                    <div class="side-menu" style="position:absolute;">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <!-- Main Menu -->
+                            <div class="side-menu-container">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><span class="glyphicon glyphicon-dashboard" id="ICON-SideBar">@Html.ActionLink("Dashboard", "Index", "Dashboards")</span></li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        var user = User.Identity;
+                                        ApplicationDbContext context = new ApplicationDbContext();
+                                        var UserManager = new UserManager
+                                        <ApplicationUser>
+                                            (new UserStore<ApplicationUser>
+                                                (context));
+                                        var s = UserManager.GetRoles(user.GetUserId());
+                                        if (s[0].ToString() == "Admin")
+                                        {
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("My Profile", "Index", "Manage")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Institutes", "Index", "Institutes")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Teachers", "InstituteTeachers", "Teachers")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Students", "Index", "Students")</span>
+                                    <ul>
+                                        <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Upload", "Upload", "Students")</span></li>
+                                    </ul>
+                                    </li>
+                                            <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Courses", "Index", "Courses")</span></li>
+                                            <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Sections", "Index", "ClassSections")</span></li>
+                                            <li><span class="glyphicon glyphicon-folder-open" id="ICON-SideBar">@Html.ActionLink("Subjects", "Index", "Coursesubjects")</span></li>
+                                            <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+                                        }
+                                        if (s[0].ToString() == "SchoolAdmin")
+                                        {
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("My Profile", "Index", "Manage")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Teachers", "InstituteTeachers", "Teachers")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Students", "Index", "Students")</span>
+                                                <ul>
+                                                    <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Upload", "Upload", "Students")</span></li>
+                                                </ul></li>
+                                            <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Courses", "Index", "Courses")</span></li>
+                                            <li><span class="glyphicon glyphicon-book" id="ICON-SideBar">@Html.ActionLink("Sections", "Index", "ClassSections")</span></li>
+                                            <li><span class="glyphicon glyphicon-folder-open" id="ICON-SideBar">@Html.ActionLink("Subjects", "Index", "Coursesubjects")</span></li>
+                                            <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+                                            <li class="active"><span class="glyphicon glyphicon-envelope" id="ICON-SideBar">@Html.ActionLink("Mail Recipients", "Index", "MailRecipients")</span></li>
+                                        }
+                                        if (s[0].ToString() == "Teacher")
+                                        {
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("My Profile", "Index", "Manage")</span></li>
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("Students", "Index", "Students")</span></li>
+                                            <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+                                        }
+                                        if (s[0].ToString() == "Student")
+                                        {
+                                            <li><span class="glyphicon glyphicon-user" id="ICON-SideBar">@Html.ActionLink("My Profile", "Index", "Manage")</span></li>
+                                            <li class="active"><span class="glyphicon glyphicon-folder-close" id="ICON-SideBar">@Html.ActionLink("Results", "Index", "Students")</span></li>
+                                        }
+
+                                    }
+
+
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </nav>
+                    </div>
+        </div>
+            </div>
+            <div class="col-sm-9" style="padding:5%;">
+                @RenderBody()
+                <hr />
+                <footer id="cloudShoolFooter" class="navbar-fixed-bottom">
+                    <p>&copy; @DateTime.Now.Year - Cloud School</p>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
