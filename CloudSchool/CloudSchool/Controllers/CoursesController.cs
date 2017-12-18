@@ -16,11 +16,28 @@ namespace CloudSchool.Controllers
         private CloudSchoolDbContext db = new CloudSchoolDbContext();
 
         // GET: Courses
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
             string id = User.Identity.GetUserId();
             var courses = db.Classes.Where(d => d.SchoolID.Equals(id));
-            var lstCourses = courses.ToList();
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+       
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                courses = courses.Where(s => s.Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    courses = courses.OrderByDescending(s => s.Name);
+                    break;
+               
+                default:
+                    courses = courses.OrderBy(s => s.Name);
+                    break;
+            }
             return View(courses.ToList());
         }
 

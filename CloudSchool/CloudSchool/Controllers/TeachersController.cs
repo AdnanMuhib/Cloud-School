@@ -10,6 +10,7 @@ using CloudSchool.Models;
 using System.IO;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using PagedList;
 
 namespace CloudSchool.Controllers
 {
@@ -24,10 +25,37 @@ namespace CloudSchool.Controllers
             return View(db.Teachers.ToList());
         }
         // GET: Teachers
-        public ActionResult InstituteTeachers()
+        public ActionResult InstituteTeachers(string sortOrder, string currentFilter, string searchString, int? page)
         {
             string id = User.Identity.GetUserId();
             var teachers = db.Teachers.Where(d => d.SchoolID.Equals(id));
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "reg" ? "reg_desc" : "reg";
+
+            
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                teachers = teachers.Where(s => s.Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    teachers = teachers.OrderByDescending(s => s.Name);
+                    break;
+                case "reg":
+                    teachers = teachers.OrderBy(s => s.RegistrationNumber);
+                    break;
+                case "reg_desc":
+                    teachers = teachers.OrderByDescending(s => s.RegistrationNumber);
+                    break;
+                default:
+                    teachers = teachers.OrderBy(s => s.Name);
+                    break;
+            }
+           
             return View(teachers.ToList());
         }
 

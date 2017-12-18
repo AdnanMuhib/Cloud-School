@@ -53,6 +53,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -191,10 +199,6 @@
     <Compile Include="Migrations\201712171208377_Another.Designer.cs">
       <DependentUpon>201712171208377_Another.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712171628129_Initialcreate.cs" />
-    <Compile Include="Migrations\201712171628129_Initialcreate.Designer.cs">
-      <DependentUpon>201712171628129_Initialcreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201712171645486_Initialcreate1.cs" />
     <Compile Include="Migrations\201712171645486_Initialcreate1.Designer.cs">
       <DependentUpon>201712171645486_Initialcreate1.cs</DependentUpon>
@@ -206,6 +210,14 @@
     <Compile Include="Migrations\201712171811293_Initialcreate3.cs" />
     <Compile Include="Migrations\201712171811293_Initialcreate3.Designer.cs">
       <DependentUpon>201712171811293_Initialcreate3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712172016218_Initialcreate4.cs" />
+    <Compile Include="Migrations\201712172016218_Initialcreate4.Designer.cs">
+      <DependentUpon>201712172016218_Initialcreate4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712180057047_Initial-Create.cs" />
+    <Compile Include="Migrations\201712180057047_Initial-Create.Designer.cs">
+      <DependentUpon>201712180057047_Initial-Create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -228,6 +240,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -366,9 +379,6 @@
     <EmbeddedResource Include="Migrations\201712171208377_Another.resx">
       <DependentUpon>201712171208377_Another.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712171628129_Initialcreate.resx">
-      <DependentUpon>201712171628129_Initialcreate.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712171645486_Initialcreate1.resx">
       <DependentUpon>201712171645486_Initialcreate1.cs</DependentUpon>
     </EmbeddedResource>
@@ -377,6 +387,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712171811293_Initialcreate3.resx">
       <DependentUpon>201712171811293_Initialcreate3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712172016218_Initialcreate4.resx">
+      <DependentUpon>201712172016218_Initialcreate4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712180057047_Initial-Create.resx">
+      <DependentUpon>201712180057047_Initial-Create.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

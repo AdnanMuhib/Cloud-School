@@ -218,7 +218,6 @@ C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\bin\Microso
 C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.csprojResolveAssemblyReference.cache
 C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.Another.resources
 C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.csproj.GenerateResource.Cache
 C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.dll
@@ -227,3 +226,9 @@ C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\C
 C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.Initialcreate1.resources
 C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.Initialcreate2.resources
 C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.Initialcreate3.resources
+C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.Migrations.Initialcreate4.resources
+C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\obj\Debug\CloudSchool.csprojResolveAssemblyReference.cache
+C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\bin\PagedList.dll
+C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\bin\PagedList.Mvc.dll
+C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\bin\PagedList.xml
+C:\Users\Hassan\Desktop\TestApp\Cloud-School\CloudSchool\CloudSchool\bin\PagedList.Mvc.xml

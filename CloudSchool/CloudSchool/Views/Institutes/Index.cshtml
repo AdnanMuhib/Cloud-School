@@ -8,35 +8,22 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <span class="btn btn-success" id="MyButton">@Html.ActionLink("Create New", "Create") </span>
 </p>
-<table class="table">
+<table class="table" border="5">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TypeOfInstitute)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>
+     
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Logo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccountID)
-        </th>
-        <th></th>
+       
     </tr>
 
 @foreach (var item in Model) {
@@ -44,32 +31,20 @@
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TypeOfInstitute)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
+       
+        
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Logo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccountID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
+            <span class="btn btn-warning" id="MyButton"> @Html.ActionLink("Edit", "Edit", new { id = item.ID }) </span> |
+            <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Details", "Details", new { id = item.ID }) </span> |
+            <span class="btn btn-danger" id="MyButton"> @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+</td>
     </tr>
 }
 

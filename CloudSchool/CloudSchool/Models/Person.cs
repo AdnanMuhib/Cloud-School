@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CloudSchool.Models
 {
@@ -31,6 +32,9 @@ namespace CloudSchool.Models
         public string MobileNumber { set; get; }
         [DisplayName("Gender")]
         public string Gender { set; get; }
+        [HiddenInput(DisplayValue=false)]
+        public string  UserID { get; set; }
+
 
     }
 }

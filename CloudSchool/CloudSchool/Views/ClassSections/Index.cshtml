@@ -8,17 +8,25 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Create New", "Create")</span>@
 </p>
-<table class="table">
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table" border="5">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SectionTitle)
+            @Html.ActionLink("SectionTitle", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ClassName)
         </th>
-        <th></th>
+       
     </tr>
 
 @foreach (var item in Model) {
@@ -31,10 +39,10 @@
         </td>
 
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
+            <span class="btn btn-warning" id="MyButton">  @Html.ActionLink("Edit", "Edit", new { id = item.ID }) </span> |
+            <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Details", "Details", new { id = item.ID }) </span> | 
+            <span class="btn btn-danger" id="MyButton">  @Html.ActionLink("Delete", "Delete", new { id = item.ID }) </span>
+</td>
     </tr>
 }
 

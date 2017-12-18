@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_DashboardSchool.cshtml";
+
 }
 
 <h2>Edit</h2>
@@ -42,15 +44,30 @@
         </div>
 
         <div class="form-group">
+            @Html.Label("Select Teacher", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <div class="stylishDropDown">@Html.DropDownList("TeacherRegistrationNumber", (SelectList)ViewBag.Teachers, "Choose A Teacher")</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Select Course", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <div class="stylishDropDown">@Html.DropDownList("CourseName", (SelectList)ViewBag.Courses, "Choose A Course")</div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-success"  id="MyButton"/>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <span class="btn btn-warning" id="MyButton"> @Html.ActionLink("Back to List", "Index") </span>
 </div>
 
 @section Scripts {

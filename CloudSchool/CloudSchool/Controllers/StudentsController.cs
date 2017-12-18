@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using LumenWorks.Framework.IO.Csv;
 using System.Globalization;
+using PagedList;
 
 namespace CloudSchool.Controllers
 {
@@ -20,11 +21,45 @@ namespace CloudSchool.Controllers
         private CloudSchoolDbContext db = new CloudSchoolDbContext();
 
         // GET: Students
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             string id = User.Identity.GetUserId();
             var students = db.Students.Where(d => d.SchoolID.Equals(id));
-            return View(students.ToList());
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.Name);
+                    break;
+                
+                default:
+                    students = students.OrderBy(s => s.Name);
+                    break;
+            }
+
+            ViewBag.Students = students;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
+            
         }
         // GET: View to upload students CSV File
         public ActionResult Upload()
