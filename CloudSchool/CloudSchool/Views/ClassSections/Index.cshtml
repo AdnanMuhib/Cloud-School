@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Create New", "Create")</span>@
+    <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Create New", "Create")</span>
 </p>
 
 @using (Html.BeginForm())
@@ -26,7 +26,7 @@
         <th>
             @Html.DisplayNameFor(model => model.ClassName)
         </th>
-       
+
     </tr>
 
 @foreach (var item in Model) {
@@ -40,7 +40,7 @@
 
         <td>
             <span class="btn btn-warning" id="MyButton">  @Html.ActionLink("Edit", "Edit", new { id = item.ID }) </span> |
-            <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Details", "Details", new { id = item.ID }) </span> | 
+            <span class="btn btn-success" id="MyButton"> @Html.ActionLink("Details", "Details", new { id = item.ID }) </span> |
             <span class="btn btn-danger" id="MyButton">  @Html.ActionLink("Delete", "Delete", new { id = item.ID }) </span>
 </td>
     </tr>
